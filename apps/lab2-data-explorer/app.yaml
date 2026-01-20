@@ -1,0 +1,23 @@
+# Databricks App Configuration - Lab 2: Data Explorer
+
+# Command to start the application
+command: ["streamlit", "run", "app.py", "--server.port", "8080", "--server.address", "0.0.0.0"]
+
+# Resources configuration
+resources:
+  # SQL Warehouse connection
+  - name: warehouse_connection
+    warehouse:
+      warehouse_id: "YOUR_WAREHOUSE_ID_HERE"  # Replace with your SQL Warehouse ID
+
+# Environment variables
+env:
+  # App configuration
+  - name: APP_NAME
+    value: "Lab 2: Data Explorer"
+  
+  - name: LOG_LEVEL
+    value: "INFO"
+  
+  - name: CACHE_TTL
+    value: "600"  # Cache for 10 minutes

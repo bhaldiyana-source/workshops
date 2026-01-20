@@ -1,0 +1,32 @@
+# Databricks Apps Workshop - Shared Configuration Template
+# Copy this file and customize the values for your workspace
+
+databricks:
+  # SQL Warehouse Configuration
+  warehouse_id: "YOUR_WAREHOUSE_ID_HERE"  # e.g., "abc123def456"
+  
+  # Unity Catalog Configuration
+  catalog_name: "main"  # Your catalog name
+  schema_name: "default"  # Your schema name
+  
+  # Sample table for Labs 2 and 4
+  sample_table: "sample_data"  # A table in catalog.schema.table format
+  
+  # MLflow Model Configuration (Lab 3)
+  model_name: "your_model_name"  # e.g., "main.ml_models.classifier"
+  model_version: "1"  # Model version or alias like "Champion"
+
+app:
+  # Application Settings
+  log_level: "INFO"  # DEBUG, INFO, WARNING, ERROR, CRITICAL
+  cache_ttl: 3600  # Cache time-to-live in seconds (1 hour)
+  
+  # Connection Settings
+  connection_timeout: 120  # Connection timeout in seconds
+  max_retries: 3  # Maximum connection retry attempts
+  retry_backoff: 2  # Exponential backoff multiplier
+
+security:
+  # Security Settings
+  enable_obo: true  # Use On-Behalf-Of permissions
+  validate_input: true  # Enable input validation

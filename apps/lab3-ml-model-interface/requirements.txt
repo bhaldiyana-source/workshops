@@ -1,0 +1,17 @@
+# Lab 3: ML Model Interface - Python Dependencies
+
+# Gradio framework
+gradio>=4.0.0
+
+# MLflow for model management
+mlflow>=2.8.0
+
+# Databricks SDK
+databricks-sdk>=0.12.0
+
+# Data manipulation
+pandas>=2.0.0
+numpy>=1.24.0
+
+# Configuration
+pyyaml>=6.0

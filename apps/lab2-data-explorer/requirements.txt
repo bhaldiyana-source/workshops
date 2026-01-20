@@ -1,0 +1,15 @@
+# Lab 2: Data Explorer - Python Dependencies
+
+# Streamlit framework
+streamlit>=1.28.0
+
+# Databricks connectivity
+databricks-sql-connector>=2.9.0
+databricks-sdk>=0.12.0
+
+# Data manipulation and visualization
+pandas>=2.0.0
+numpy>=1.24.0
+
+# Configuration
+pyyaml>=6.0

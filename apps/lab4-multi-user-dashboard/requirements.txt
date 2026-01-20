@@ -1,0 +1,19 @@
+# Lab 4: Multi-User Dashboard - Python Dependencies
+
+# Dash framework
+dash>=2.14.0
+dash-bootstrap-components>=1.5.0
+
+# Plotly for visualizations
+plotly>=5.17.0
+
+# Databricks connectivity
+databricks-sql-connector>=2.9.0
+databricks-sdk>=0.12.0
+
+# Data manipulation
+pandas>=2.0.0
+numpy>=1.24.0
+
+# Configuration
+pyyaml>=6.0

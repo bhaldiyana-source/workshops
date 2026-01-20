@@ -1,0 +1,31 @@
+# Databricks App Configuration - Lab 3: ML Model Interface
+
+# Command to start the application
+command: ["python", "app.py"]
+
+# Resources configuration
+resources:
+  # SQL Warehouse connection (optional, for model registry queries)
+  - name: warehouse_connection
+    warehouse:
+      warehouse_id: "YOUR_WAREHOUSE_ID_HERE"  # Replace with your SQL Warehouse ID
+
+# Environment variables
+env:
+  # App configuration
+  - name: APP_NAME
+    value: "Lab 3: ML Model Interface"
+  
+  - name: LOG_LEVEL
+    value: "INFO"
+  
+  # MLflow Model configuration
+  - name: MODEL_NAME
+    value: "catalog.schema.model_name"  # Replace with your model's fully qualified name
+  
+  - name: MODEL_VERSION
+    value: "1"  # Or use an alias like "Champion"
+  
+  # Optional: MLflow tracking URI (usually auto-configured)
+  # - name: MLFLOW_TRACKING_URI
+  #   value: "databricks"

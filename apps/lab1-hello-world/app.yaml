@@ -1,0 +1,30 @@
+# Databricks App Configuration - Lab 1: Hello World
+
+# Command to start the application
+command: ["streamlit", "run", "app.py", "--server.port", "8080", "--server.address", "0.0.0.0"]
+
+# Resources configuration
+resources:
+  # SQL Warehouse connection
+  - name: warehouse_connection
+    warehouse:
+      warehouse_id: "YOUR_WAREHOUSE_ID_HERE"  # Replace with your SQL Warehouse ID
+
+# Environment variables
+env:
+  # App configuration
+  - name: APP_NAME
+    value: "Lab 1: Hello World"
+  
+  - name: LOG_LEVEL
+    value: "INFO"
+  
+  # Optional: Add custom environment variables here
+  # - name: CUSTOM_VAR
+  #   value: "custom_value"
+  
+  # Optional: Reference secrets from Databricks Secrets
+  # - name: API_KEY
+  #   secret:
+  #     scope: "my-scope"
+  #     key: "api-key"

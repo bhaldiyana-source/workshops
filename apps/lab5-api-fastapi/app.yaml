@@ -1,0 +1,34 @@
+# Databricks App Configuration - Lab 5: RESTful API with FastAPI
+
+# Command to start the application
+command: ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8080"]
+
+# Resources configuration
+resources:
+  # SQL Warehouse connection
+  - name: warehouse_connection
+    warehouse:
+      warehouse_id: "YOUR_WAREHOUSE_ID_HERE"  # Replace with your SQL Warehouse ID
+
+# Environment variables
+env:
+  # App configuration
+  - name: APP_NAME
+    value: "Lab 5: RESTful API"
+  
+  - name: LOG_LEVEL
+    value: "INFO"
+  
+  # Data source configuration
+  - name: CATALOG_NAME
+    value: "main"
+  
+  - name: SCHEMA_NAME
+    value: "default"
+  
+  - name: SAMPLE_TABLE
+    value: "sample_data"
+  
+  # API configuration
+  - name: DEBUG
+    value: "false"  # Set to "true" for detailed error messages (development only)

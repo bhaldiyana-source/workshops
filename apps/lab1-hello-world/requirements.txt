@@ -1,0 +1,14 @@
+# Lab 1: Hello World - Python Dependencies
+
+# Streamlit framework
+streamlit>=1.28.0
+
+# Databricks connectivity
+databricks-sql-connector>=2.9.0
+databricks-sdk>=0.12.0
+
+# Data manipulation
+pandas>=2.0.0
+
+# Configuration
+pyyaml>=6.0
