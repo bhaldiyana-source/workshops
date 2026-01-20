@@ -1,0 +1,72 @@
+bundle:
+  name: {{project_name}}
+
+variables:
+  catalog:
+    description: "Unity Catalog name"
+    default: "dev_catalog"
+  
+  num_workers:
+    description: "Number of cluster workers"
+    default: 2
+
+targets:
+  dev:
+    workspace:
+      host: {{dev_workspace_url}}
+      root_path: /Workspace/Users/${workspace.current_user.userName}/.bundle/${bundle.name}/${bundle.target}
+    
+    variables:
+      catalog: "dev_catalog"
+      num_workers: 1
+  
+  prod:
+    workspace:
+      host: {{prod_workspace_url}}
+      root_path: /Workspace/Users/${workspace.current_user.userName}/.bundle/${bundle.name}/${bundle.target}
+    
+    variables:
+      catalog: "prod_catalog"
+      num_workers: 4
+
+resources:
+  jobs:
+    {{job_name}}:
+      name: "{{job_display_name}} - ${bundle.target}"
+      
+      schedule:
+        quartz_cron_expression: "{{cron_expression}}"
+        timezone_id: "{{timezone}}"
+        pause_status: PAUSED
+      
+      email_notifications:
+        on_failure:
+          - {{notification_email}}
+        on_success:
+          - {{notification_email}}
+      
+      max_concurrent_runs: 1
+      timeout_seconds: 3600
+      
+      tasks:
+        - task_key: main_task
+          notebook_task:
+            notebook_path: ./src/{{notebook_name}}.py
+            base_parameters:
+              catalog: ${var.catalog}
+              environment: ${bundle.target}
+          
+          new_cluster:
+            num_workers: ${var.num_workers}
+            spark_version: "13.3.x-scala2.12"
+            node_type_id: "i3.xlarge"
+            autotermination_minutes: 30
+            
+            spark_conf:
+              "spark.databricks.delta.preview.enabled": "true"
+      
+      permissions:
+        - level: CAN_VIEW
+          group_name: "{{viewer_group}}"
+        - level: CAN_MANAGE_RUN
+          user_name: "${workspace.current_user.userName}"

@@ -1,0 +1,109 @@
+bundle:
+  name: {{project_name}}-dlt
+
+variables:
+  catalog:
+    default: "dev_catalog"
+  
+  source_path:
+    default: "/Volumes/{{catalog}}/bronze/raw_data"
+
+targets:
+  dev:
+    variables:
+      catalog: "dev_catalog"
+  
+  prod:
+    variables:
+      catalog: "prod_catalog"
+
+resources:
+  # Unity Catalog Schemas
+  schemas:
+    bronze:
+      name: "${var.catalog}.${bundle.target}_bronze"
+      comment: "Bronze layer - raw data ingestion"
+      
+      grants:
+        - principal: "{{data_engineers_group}}"
+          privileges: ["ALL_PRIVILEGES"]
+    
+    silver:
+      name: "${var.catalog}.${bundle.target}_silver"
+      comment: "Silver layer - cleaned and validated data"
+      
+      grants:
+        - principal: "{{data_engineers_group}}"
+          privileges: ["ALL_PRIVILEGES"]
+    
+    gold:
+      name: "${var.catalog}.${bundle.target}_gold"
+      comment: "Gold layer - business-level aggregates"
+      
+      grants:
+        - principal: "{{data_engineers_group}}"
+          privileges: ["ALL_PRIVILEGES"]
+        - principal: "{{analysts_group}}"
+          privileges: ["SELECT", "USE_SCHEMA"]
+  
+  # Volume for raw data
+  volumes:
+    raw_data:
+      name: "${var.catalog}.${bundle.target}_bronze.raw_data"
+      volume_type: "MANAGED"
+      comment: "Storage for raw data files"
+      
+      grants:
+        - principal: "{{data_engineers_group}}"
+          privileges: ["ALL_PRIVILEGES"]
+  
+  # DLT Pipeline
+  pipelines:
+    {{pipeline_name}}:
+      name: "{{pipeline_display_name}} - ${bundle.target}"
+      target: "${var.catalog}.${bundle.target}_silver"
+      
+      # Pipeline mode
+      continuous: false
+      development: true
+      
+      # Cluster configuration
+      clusters:
+        - label: "default"
+          num_workers: 2
+          spark_version: "13.3.x-scala2.12"
+          node_type_id: "i3.xlarge"
+          
+          autoscale:
+            min_workers: 1
+            max_workers: 5
+      
+      # DLT notebooks
+      libraries:
+        - notebook:
+            path: ./src/bronze_layer.py
+        - notebook:
+            path: ./src/silver_layer.py
+        - notebook:
+            path: ./src/gold_layer.py
+      
+      # Configuration
+      configuration:
+        catalog: ${var.catalog}
+        environment: ${bundle.target}
+        source_path: ${var.source_path}
+      
+      # Notifications
+      notifications:
+        - email_recipients:
+            - {{notification_email}}
+          alerts:
+            - "on-update-failure"
+            - "on-update-fatal-failure"
+      
+      # Permissions
+      permissions:
+        - level: CAN_VIEW
+          group_name: "{{viewers_group}}"
+        - level: CAN_MANAGE
+          group_name: "{{data_engineers_group}}"

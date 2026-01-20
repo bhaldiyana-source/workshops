@@ -1,0 +1,54 @@
+bundle:
+  name: simple-job-example
+
+variables:
+  catalog:
+    description: "Unity Catalog name"
+    default: "dev_catalog"
+
+targets:
+  dev:
+    workspace:
+      host: https://your-workspace.cloud.databricks.com
+    variables:
+      catalog: "dev_catalog"
+  
+  prod:
+    workspace:
+      host: https://prod-workspace.cloud.databricks.com
+    variables:
+      catalog: "prod_catalog"
+
+resources:
+  jobs:
+    simple_job:
+      name: "Simple Job - ${bundle.target}"
+      
+      schedule:
+        quartz_cron_expression: "0 0 8 * * ?"
+        timezone_id: "UTC"
+        pause_status: PAUSED
+      
+      email_notifications:
+        on_failure:
+          - data-team@company.com
+      
+      tasks:
+        - task_key: main_task
+          notebook_task:
+            notebook_path: ./src/main.py
+            base_parameters:
+              catalog: ${var.catalog}
+              environment: ${bundle.target}
+          
+          new_cluster:
+            num_workers: 2
+            spark_version: 13.3.x-scala2.12
+            node_type_id: i3.xlarge
+            autotermination_minutes: 30
+      
+      permissions:
+        - level: CAN_VIEW
+          group_name: "data-team"
+        - level: IS_OWNER
+          user_name: "${workspace.current_user.userName}"

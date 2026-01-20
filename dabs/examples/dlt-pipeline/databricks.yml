@@ -1,0 +1,55 @@
+bundle:
+  name: dlt-pipeline-example
+
+variables:
+  catalog:
+    default: "dev_catalog"
+
+targets:
+  dev:
+    variables:
+      catalog: "dev_catalog"
+  prod:
+    variables:
+      catalog: "prod_catalog"
+
+resources:
+  schemas:
+    bronze:
+      name: "${var.catalog}.${bundle.target}_bronze"
+    silver:
+      name: "${var.catalog}.${bundle.target}_silver"
+    gold:
+      name: "${var.catalog}.${bundle.target}_gold"
+  
+  pipelines:
+    example_pipeline:
+      name: "Example DLT Pipeline - ${bundle.target}"
+      target: "${var.catalog}.${bundle.target}_silver"
+      
+      continuous: false
+      development: true
+      
+      clusters:
+        - label: "default"
+          num_workers: 2
+          spark_version: "13.3.x-scala2.12"
+          node_type_id: "i3.xlarge"
+      
+      libraries:
+        - notebook:
+            path: ./src/bronze_layer.py
+        - notebook:
+            path: ./src/silver_layer.py
+        - notebook:
+            path: ./src/gold_layer.py
+      
+      configuration:
+        catalog: ${var.catalog}
+        environment: ${bundle.target}
+      
+      notifications:
+        - email_recipients:
+            - data-team@company.com
+          alerts:
+            - "on-update-failure"

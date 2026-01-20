@@ -1,0 +1,99 @@
+bundle:
+  name: {{project_name}}
+
+variables:
+  catalog:
+    description: "Unity Catalog name"
+    default: "dev_catalog"
+  
+  num_workers:
+    description: "Number of cluster workers"
+    default: 2
+
+targets:
+  dev:
+    workspace:
+      host: {{dev_workspace_url}}
+    variables:
+      catalog: "dev_catalog"
+      num_workers: 1
+  
+  prod:
+    workspace:
+      host: {{prod_workspace_url}}
+    variables:
+      catalog: "prod_catalog"
+      num_workers: 4
+    run_as:
+      service_principal_name: "{{service_principal_name}}"
+
+resources:
+  # Schemas
+  schemas:
+    bronze:
+      name: "${var.catalog}.${bundle.target}_bronze"
+      comment: "Bronze layer"
+    silver:
+      name: "${var.catalog}.${bundle.target}_silver"
+      comment: "Silver layer"
+    gold:
+      name: "${var.catalog}.${bundle.target}_gold"
+      comment: "Gold layer"
+  
+  # Volumes
+  volumes:
+    raw_data:
+      name: "${var.catalog}.${bundle.target}_bronze.raw_data"
+      volume_type: "MANAGED"
+  
+  # DLT Pipeline
+  pipelines:
+    data_pipeline:
+      name: "Data Pipeline - ${bundle.target}"
+      target: "${var.catalog}.${bundle.target}_silver"
+      continuous: false
+      
+      clusters:
+        - label: "default"
+          num_workers: ${var.num_workers}
+      
+      libraries:
+        - notebook:
+            path: ./src/pipelines/bronze.py
+        - notebook:
+            path: ./src/pipelines/silver.py
+        - notebook:
+            path: ./src/pipelines/gold.py
+  
+  # Analytics Job
+  jobs:
+    analytics_job:
+      name: "Analytics Job - ${bundle.target}"
+      
+      schedule:
+        quartz_cron_expression: "0 0 6 * * ?"
+        timezone_id: "UTC"
+      
+      tasks:
+        - task_key: generate_reports
+          notebook_task:
+            notebook_path: ./src/jobs/analytics.py
+          new_cluster:
+            num_workers: ${var.num_workers}
+            spark_version: "13.3.x-scala2.12"
+            node_type_id: "i3.xlarge"
+  
+  # ML Experiment
+  experiments:
+    ml_experiment:
+      name: "/Shared/experiments/{{project_name}}-${bundle.target}"
+      description: "ML experiments for {{project_name}}"
+  
+  # Development Cluster
+  clusters:
+    dev_cluster:
+      cluster_name: "Dev Cluster - ${bundle.target}"
+      spark_version: "13.3.x-scala2.12"
+      node_type_id: "i3.xlarge"
+      num_workers: 2
+      autotermination_minutes: 30
