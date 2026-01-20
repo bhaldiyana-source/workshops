@@ -1,0 +1,569 @@
+SMARTWATCH PRO X1 - USER MANUAL
+================================
+
+Model: SPX1-2026
+Firmware Version: 4.2.1
+Last Updated: January 2026
+
+IMPORTANT SAFETY INFORMATION
+Please read all instructions before using your SmartWatch Pro X1
+
+================================
+CONTENTS
+================================
+
+1. Getting Started
+2. Basic Operations
+3. Health and Fitness Features
+4. Connectivity and Apps
+5. Settings and Customization
+6. Battery and Charging
+7. Troubleshooting
+8. Specifications
+9. Warranty Information
+10. FAQ
+
+================================
+1. GETTING STARTED
+================================
+
+What's in the Box
+-----------------
+□ SmartWatch Pro X1
+□ Charging cable (USB-C)
+□ Quick start guide
+□ Warranty card
+□ Two additional band sizes (S and L)
+
+If any items are missing, please contact customer support within 30 days of purchase.
+
+Initial Setup
+-------------
+
+Step 1: Charge Your Watch
+Before first use, charge your SmartWatch Pro X1 for at least 30 minutes.
+- Connect the charging cable to the watch
+- LED indicator will turn orange during charging
+- LED turns green when fully charged
+
+Step 2: Power On
+Press and hold the side button for 3 seconds until the screen illuminates.
+
+Step 3: Select Language
+- Swipe left or right to scroll through language options
+- Tap your preferred language to select
+- Supported languages: English, Spanish, French, German, Italian, Portuguese, Chinese, Japanese, Korean
+
+Step 4: Download the Companion App
+- Scan the QR code displayed on your watch
+- Or search "SmartWatch Pro" in App Store (iOS) or Google Play (Android)
+- Download and install the free app
+
+Step 5: Pair Your Watch
+On your smartphone:
+1. Open the SmartWatch Pro app
+2. Tap "Add New Device"
+3. Select "SmartWatch Pro X1"
+4. Follow on-screen pairing instructions
+5. Grant necessary permissions (Bluetooth, Location, Notifications)
+
+The watch will display a 6-digit code. Confirm this code matches the one shown on your phone.
+
+Step 6: Complete Profile
+Enter your personal information for accurate fitness tracking:
+- Age
+- Height
+- Weight
+- Gender
+- Activity level
+
+This information is stored locally and encrypted for your privacy.
+
+First Time Tips
+---------------
+- Take 5 minutes to explore the main menu
+- Swipe up for notifications, down for quick settings
+- Press the side button to return to watch face
+- Long press the watch face to customize it
+
+================================
+2. BASIC OPERATIONS
+================================
+
+Navigation
+----------
+
+Touchscreen Gestures:
+- Swipe Left/Right: Navigate between screens
+- Swipe Up: View notifications
+- Swipe Down: Access quick settings
+- Tap: Select items or open apps
+- Long Press: Access additional options
+
+Physical Buttons:
+- Side Button (short press): Return to watch face
+- Side Button (long press): Power menu
+- Side Button (double press): Open favorite app (customizable)
+
+Watch Face
+----------
+The watch face displays:
+- Current time and date
+- Active complications (customizable widgets)
+- Battery status
+- Connection status
+- Unread notifications count
+
+Changing Watch Faces:
+1. Long press the current watch face
+2. Swipe left/right to browse options
+3. Tap to select
+4. Tap "Customize" to adjust colors and complications
+
+Available Watch Faces:
+- Classic: Traditional analog design
+- Digital: Clear digital time display
+- Activity: Focus on fitness metrics
+- Modular: Customizable information widgets
+- Photo: Use your own photos as background
+- Animated: Dynamic, moving backgrounds
+
+Complications (Widgets):
+Add useful information to your watch face:
+- Weather forecast
+- Heart rate
+- Steps today
+- Calendar events
+- Battery level
+- Sunrise/sunset times
+- Stock prices
+- Music controls
+
+Quick Settings Panel
+--------------------
+Swipe down from the top to access:
+- Wi-Fi toggle
+- Do Not Disturb mode
+- Flashlight
+- Find My Phone
+- Airplane mode
+- Screen brightness
+- Volume control
+- Battery saver mode
+
+Tap any icon to toggle on/off. Long press for detailed settings.
+
+Notifications
+-------------
+
+Viewing Notifications:
+1. Swipe up from the watch face
+2. Scroll through recent notifications
+3. Tap a notification to read full content
+4. Swipe left on notification to dismiss
+
+Managing Notifications:
+- Configure which apps can send notifications in the companion app
+- Set quiet hours when notifications are silenced
+- Enable vibration patterns for different notification types
+
+Notification Actions:
+Some apps support quick actions:
+- Messages: Reply with voice or quick responses
+- Calendar: Snooze or dismiss reminders
+- Email: Mark as read or archive
+- Phone: Answer or decline calls
+
+================================
+3. HEALTH AND FITNESS FEATURES
+================================
+
+Heart Rate Monitoring
+---------------------
+
+Continuous Heart Rate:
+Your watch automatically measures heart rate every 5 minutes throughout the day.
+
+Manual Measurement:
+1. Open the Heart Rate app
+2. Keep your wrist still
+3. Wait 10-15 seconds for reading
+4. View current, resting, and daily average heart rate
+
+Heart Rate Zones:
+- Resting: < 60 bpm
+- Fat Burn: 60-70% of max
+- Cardio: 70-85% of max
+- Peak: 85-100% of max
+
+High/Low Heart Rate Alerts:
+Enable alerts for abnormal heart rates:
+- Settings > Health > Heart Rate Alerts
+- Set threshold for high heart rate (e.g., >120 bpm when inactive)
+- Set threshold for low heart rate (e.g., <40 bpm)
+
+Sleep Tracking
+--------------
+
+Automatic Sleep Detection:
+The watch automatically detects when you fall asleep and wake up.
+
+Sleep Metrics:
+- Total sleep time
+- Sleep stages (Light, Deep, REM)
+- Time to fall asleep
+- Number of times awakened
+- Sleep quality score (0-100)
+
+Improving Sleep Tracking Accuracy:
+- Wear watch snug but comfortable
+- Enable sleep mode for improved battery life
+- Set consistent bedtime schedule
+- Keep firmware updated
+
+Viewing Sleep Data:
+- On watch: Open Sleep app
+- On phone: More detailed charts and trends in companion app
+- Weekly and monthly summaries available
+
+Activity Tracking
+-----------------
+
+Daily Activity Goals:
+- Steps: Default 10,000 (customizable)
+- Active minutes: Default 30
+- Calories burned: Personalized based on profile
+- Standing hours: Default 12
+
+The watch vibrates when you've been inactive for 50 minutes during waking hours.
+
+Auto-Detected Activities:
+The watch automatically recognizes:
+- Walking (10+ minutes)
+- Running (5+ minutes)
+- Cycling (10+ minutes)
+- Swimming (5+ minutes)
+
+Workout Modes
+-------------
+
+Starting a Workout:
+1. Press side button
+2. Scroll to Workout app
+3. Select activity type
+4. Set goals (optional): duration, distance, or calories
+5. Tap "Start"
+6. Workout begins after 3-second countdown
+
+Available Workout Modes:
+- Outdoor Running
+- Indoor Running (treadmill)
+- Outdoor Cycling
+- Indoor Cycling
+- Swimming (pool)
+- Open Water Swimming
+- Walking
+- Hiking
+- Yoga
+- Strength Training
+- HIIT (High-Intensity Interval Training)
+- Elliptical
+- Rowing
+- Dance
+- Pilates
+- Custom (create your own)
+
+During Workout:
+- Swipe right to pause/resume
+- Swipe left to end workout
+- Real-time metrics displayed:
+  * Duration
+  * Distance (GPS-based)
+  * Pace/Speed
+  * Heart rate
+  * Calories burned
+  * Heart rate zone
+
+Post-Workout Summary:
+After ending workout, view:
+- Complete statistics
+- Route map (for GPS activities)
+- Heart rate chart
+- Pace graph
+- Personal records achieved
+
+GPS Tracking:
+- Standalone GPS - no phone needed
+- GPS + GLONASS for improved accuracy
+- Allow 30-60 seconds for GPS lock before starting outdoor activities
+
+Water Lock Mode:
+For swimming and water activities:
+1. Swipe down for quick settings
+2. Tap water drop icon
+3. Touchscreen is disabled to prevent accidental touches
+4. Rotate digital crown to eject water after swimming
+
+SpO2 (Blood Oxygen) Monitoring
+-------------------------------
+
+Spot Check:
+1. Open SpO2 app
+2. Keep wrist still and elevated to heart level
+3. Wait 15 seconds
+4. View reading (normal range: 95-100%)
+
+Overnight Tracking:
+Enable in Settings > Health > SpO2 Monitoring
+- Automatically measures during sleep
+- Helps identify potential breathing issues
+- Drains approximately 5% additional battery
+
+Stress Monitoring
+-----------------
+
+The watch uses heart rate variability to estimate stress levels:
+- Low (0-25): Relaxed state
+- Medium (26-50): Normal daily stress
+- High (51-75): Elevated stress
+- Very High (76-100): Significant stress
+
+Breathing Exercises:
+When stress is detected as high:
+1. Watch suggests breathing exercise
+2. Follow on-screen animations
+3. Inhale and exhale guided by expanding/contracting circle
+4. Default session: 2 minutes (customizable 1-5 minutes)
+
+Menstrual Cycle Tracking
+-------------------------
+
+Setup:
+1. Open Women's Health app
+2. Enter last period start date
+3. Set average cycle length
+4. Set average period length
+
+Features:
+- Period predictions
+- Fertile window estimates
+- Log symptoms and flow
+- Reminders for upcoming periods
+- Privacy protected - data encrypted
+
+================================
+4. CONNECTIVITY AND APPS
+================================
+
+Bluetooth Connection
+--------------------
+
+Pairing Range: Up to 10 meters (33 feet)
+
+Connection Status Icons:
+- Blue Bluetooth icon: Connected to phone
+- Gray Bluetooth icon: Disconnected
+- No icon: Bluetooth disabled
+
+Reconnecting:
+If connection drops:
+1. Ensure Bluetooth is enabled on phone
+2. Keep watch and phone within range
+3. Open companion app on phone
+4. Connection restores automatically
+
+Unpair/Forget:
+To unpair watch:
+- Settings > Connectivity > Forget This Watch
+- Note: This erases all data on the watch
+
+Wi-Fi
+-----
+
+Connecting to Wi-Fi:
+1. Settings > Connectivity > Wi-Fi
+2. Toggle Wi-Fi on
+3. Select network
+4. Enter password using on-screen keyboard
+
+Wi-Fi enables:
+- Firmware updates
+- Music streaming
+- App updates
+- Voice assistant queries
+- Notification sync when phone is not nearby
+
+Supported Standards: 802.11 b/g/n (2.4 GHz)
+
+Phone Calls
+-----------
+
+Answering Calls:
+When phone rings:
+- Tap green phone icon to answer
+- Tap red phone icon to decline
+- Swipe left for quick response messages
+
+During Call:
+- Built-in microphone and speaker allow hands-free conversation
+- Adjust volume using digital crown
+- Tap "Transfer to Phone" to move call to phone
+- Maximum call duration: No limit while connected
+
+Making Calls:
+- Use voice assistant: "Call [contact name]"
+- Browse contacts: Contacts app
+- Call recent numbers: Phone app > Recent
+
+Note: Watch must be connected to phone for calls
+
+Music Control
+-------------
+
+Control Phone Music:
+- Play/Pause, Next, Previous track
+- Volume control
+- View currently playing song
+- Compatible with most music apps
+
+Standalone Music (Premium Feature):
+Store up to 500 songs directly on watch:
+1. Connect watch to Wi-Fi
+2. Open Music app
+3. Sync playlists from:
+   - Spotify Premium
+   - Apple Music
+   - YouTube Music
+   - Deezer
+
+Listen without phone using Bluetooth headphones
+
+Voice Assistant
+---------------
+
+Activation:
+- Long press digital crown
+- Or say "Hey Assistant" (if wake word enabled)
+
+Voice Commands:
+- "Set timer for 10 minutes"
+- "What's the weather today?"
+- "Start a workout"
+- "Call Mom"
+- "Send a message to John"
+- "Navigate to the nearest coffee shop"
+- "Remind me to buy milk at 5 PM"
+
+Supported Assistants:
+- Google Assistant (Android)
+- Siri (iOS)
+- Alexa (both platforms)
+
+NFC Payments
+------------
+
+Setup:
+1. Open Wallet app on phone
+2. Add credit/debit cards
+3. Verify with bank
+4. Cards sync to watch automatically
+
+Making a Payment:
+1. Double-press side button to open Wallet
+2. Select card
+3. Hold watch near payment terminal
+4. Wait for confirmation vibration
+5. No PIN needed for transactions under $50 (varies by region)
+
+Security:
+- Cards are tokenized (actual numbers not stored)
+- Payment requires watch to be unlocked
+- Auto-locks when removed from wrist
+
+================================
+5. SETTINGS AND CUSTOMIZATION
+================================
+
+Display Settings
+----------------
+
+Brightness:
+- Auto: Adjusts based on ambient light
+- Manual: 5 levels
+- Max brightness: Outdoors mode (2x normal, 10-minute duration)
+
+Always-On Display:
+- Toggle in Settings > Display
+- Shows simplified watch face when not actively in use
+- Reduces battery life by approximately 15%
+- Dims automatically in dark environments
+
+Screen Timeout:
+Choose how long screen stays on after waking:
+- 5 seconds
+- 10 seconds (default)
+- 15 seconds
+- 20 seconds
+
+Lift to Wake:
+- Automatically turns on display when you raise your wrist
+- Disable for sleep or theater mode
+- Sensitivity: Low, Medium, High
+
+Gestures
+--------
+
+Quick Gesture:
+Enable shortcut gestures:
+- Double wrist twist: Open last used app
+- Cover display with palm: Mute notifications
+- Shake wrist: Toggle flashlight
+
+Accessibility
+-------------
+
+- Large text: Increase font size
+- Bold text: Improve readability
+- High contrast: Better visibility in bright light
+- Reduce transparency: Clearer backgrounds
+- Screen reader: Voice guidance (basic)
+- Haptic feedback strength: Light, Medium, Strong
+
+[Content continues with battery, troubleshooting, specifications, warranty, and FAQ sections...]
+
+================================
+10. FAQ (Frequently Asked Questions)
+================================
+
+Q: Is the watch waterproof?
+A: Yes, water-resistant up to 50 meters (5 ATM). Suitable for swimming, showering, and water sports. Not suitable for scuba diving or high-pressure water activities.
+
+Q: How accurate is the heart rate monitor?
+A: Clinical studies show 95% accuracy compared to chest strap monitors during steady-state activities. Accuracy may decrease during high-intensity interval training.
+
+Q: Can I replace the watch band?
+A: Yes, the watch uses standard 20mm quick-release bands. Any 20mm band will work.
+
+Q: How do I clean my watch?
+A: Wipe with slightly damp cloth. For bands, use mild soap and water. Dry thoroughly before wearing. Do not use harsh chemicals or abrasives.
+
+Q: What do I do if my watch won't turn on?
+A: 1) Charge for at least 30 minutes, 2) Try forced restart by holding side button for 15 seconds, 3) Contact support if issue persists.
+
+Q: Can I use the watch without a smartphone?
+A: Yes, many features work standalone (time, fitness tracking, music playback, GPS). However, initial setup and some features require a phone.
+
+Q: Is my health data private?
+A: Yes, all health data is encrypted and stored locally. You control what information is shared. See Privacy Policy for details.
+
+For additional questions, visit support.smartwatchpro.com or contact customer service.
+
+================================
+END OF MANUAL
+================================
+
+SmartWatch Pro X1 - Making Health and Fitness Simple
+
+© 2026 SmartWatch Technologies Inc.
+support@smartwatchpro.com
+www.smartwatchpro.com

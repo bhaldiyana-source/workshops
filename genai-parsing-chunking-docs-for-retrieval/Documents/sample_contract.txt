@@ -1,0 +1,500 @@
+SOFTWARE LICENSE AND SERVICES AGREEMENT
+========================================
+
+This Software License and Services Agreement ("Agreement") is entered into as of January 15, 2026 ("Effective Date"), by and between:
+
+VENDOR:
+TechSolutions Inc.
+123 Innovation Drive
+San Francisco, CA 94105
+United States
+("Licensor" or "Vendor")
+
+AND
+
+CLIENT:
+GlobalCorp Enterprises LLC
+456 Business Boulevard
+New York, NY 10001
+United States
+("Licensee" or "Client")
+
+WHEREAS, Licensor owns and operates proprietary software platforms and related services; and
+
+WHEREAS, Licensee desires to license such software and obtain related services from Licensor;
+
+NOW, THEREFORE, in consideration of the mutual covenants and promises contained herein, and for other good and valuable consideration, the receipt and sufficiency of which are hereby acknowledged, the parties agree as follows:
+
+========================================
+ARTICLE 1 - DEFINITIONS
+========================================
+
+1.1 "Agreement" means this Software License and Services Agreement, including all exhibits, schedules, and amendments.
+
+1.2 "Authorized Users" means Licensee's employees, contractors, and consultants who are authorized to access and use the Licensed Software, not to exceed the number specified in the Order Form.
+
+1.3 "Confidential Information" means all non-public information disclosed by one party to the other, whether orally, in writing, or by any other means, that is designated as confidential or that reasonably should be understood to be confidential given the nature of the information and circumstances of disclosure.
+
+1.4 "Documentation" means the user manuals, technical manuals, training materials, and other documentation related to the Licensed Software provided by Licensor.
+
+1.5 "Intellectual Property Rights" means all patents, copyrights, trademarks, trade secrets, and other proprietary rights, whether registered or unregistered.
+
+1.6 "Licensed Software" means the software applications, platforms, and tools specified in the Order Form, including all updates, upgrades, and new versions provided during the Term.
+
+1.7 "Order Form" means the document executed by both parties specifying the Licensed Software, fees, subscription term, and other specific terms.
+
+1.8 "Professional Services" means implementation, integration, customization, training, and consulting services provided by Licensor.
+
+1.9 "Service Level Agreement" or "SLA" means the service level commitments set forth in Exhibit A.
+
+1.10 "Subscription Fees" means the recurring fees for access to the Licensed Software as specified in the Order Form.
+
+1.11 "Support Services" means technical support and maintenance services as described in Exhibit B.
+
+1.12 "Term" means the initial subscription period and any renewal periods.
+
+========================================
+ARTICLE 2 - LICENSE GRANT
+========================================
+
+2.1 License Grant
+Subject to the terms and conditions of this Agreement, Licensor hereby grants to Licensee a non-exclusive, non-transferable, limited license to:
+
+(a) Access and use the Licensed Software via the internet;
+(b) Allow Authorized Users to access and use the Licensed Software;
+(c) Use the Documentation in connection with use of the Licensed Software;
+(d) Make one copy of the Documentation for backup and archival purposes.
+
+2.2 License Restrictions
+Licensee shall not, and shall not permit any third party to:
+
+(a) Copy, modify, or create derivative works of the Licensed Software or Documentation;
+(b) Reverse engineer, decompile, disassemble, or otherwise attempt to derive the source code of the Licensed Software;
+(c) Rent, lease, lend, sell, sublicense, assign, distribute, publish, transfer, or otherwise make available the Licensed Software to any third party;
+(d) Remove, alter, or obscure any proprietary notices on the Licensed Software or Documentation;
+(e) Use the Licensed Software for any purpose other than Licensee's internal business operations;
+(f) Use the Licensed Software in any manner that violates applicable laws or regulations;
+(g) Introduce viruses, malware, or other malicious code;
+(h) Attempt to gain unauthorized access to any systems or networks;
+(i) Use the Licensed Software to store or transmit infringing, libelous, or unlawful material;
+(j) Interfere with or disrupt the integrity or performance of the Licensed Software.
+
+2.3 License Metrics
+The license is granted based on the following metrics:
+
+(a) Number of Authorized Users: Maximum of 500 users as specified in the Order Form
+(b) Data Storage: Up to 5 TB of data storage
+(c) API Calls: Up to 1,000,000 API calls per month
+(d) Geographic Restrictions: Licensed for use in United States, Canada, and European Union only
+
+Exceeding any license metric requires prior written approval and payment of additional fees.
+
+2.4 Audit Rights
+Licensor reserves the right to audit Licensee's use of the Licensed Software upon fifteen (15) days' written notice to ensure compliance with this Agreement. Such audits shall be conducted during regular business hours and shall not unreasonably interfere with Licensee's business operations. If an audit reveals non-compliance, Licensee shall:
+
+(a) Immediately pay for any excess usage;
+(b) Reimburse Licensor for reasonable audit costs if non-compliance exceeds 5%;
+(c) Take corrective action within thirty (30) days.
+
+========================================
+ARTICLE 3 - FEES AND PAYMENT
+========================================
+
+3.1 Subscription Fees
+Licensee shall pay Licensor the following fees:
+
+Annual Subscription Fee: $250,000 USD per year
+Payable in advance on the anniversary of the Effective Date
+
+The Subscription Fees include:
+- Access to Licensed Software for up to 500 Authorized Users
+- Standard Support Services (as defined in Exhibit B)
+- 5 TB data storage
+- Regular software updates and patches
+
+3.2 Professional Services Fees
+Professional Services are available at the following rates:
+
+Implementation Services: $200 per hour
+Custom Development: $250 per hour
+Training: $1,500 per day (up to 10 attendees)
+On-site Consulting: $2,500 per day plus reasonable expenses
+
+Estimates for Professional Services will be provided in Statements of Work.
+
+3.3 Additional Usage Fees
+Fees for usage exceeding license metrics:
+
+Additional Users (per user per year): $500
+Additional Storage (per TB per year): $10,000
+Additional API Calls (per 100,000 per month): $100
+
+3.4 Payment Terms
+(a) All fees are due within thirty (30) days of invoice date
+(b) Payments shall be made via wire transfer or ACH
+(c) Late payments subject to interest at 1.5% per month or maximum rate allowed by law
+(d) Licensee responsible for all taxes except those based on Licensor's income
+
+3.5 Fee Increases
+Licensor may increase Subscription Fees upon renewal by providing ninety (90) days' written notice. Fee increases shall not exceed 5% per year or the Consumer Price Index, whichever is greater.
+
+========================================
+ARTICLE 4 - TERM AND TERMINATION
+========================================
+
+4.1 Term
+This Agreement commences on the Effective Date and continues for an initial term of three (3) years ("Initial Term"), unless terminated earlier in accordance with this Agreement.
+
+4.2 Renewal
+Upon expiration of the Initial Term, this Agreement shall automatically renew for successive one (1) year periods ("Renewal Terms"), unless either party provides written notice of non-renewal at least ninety (90) days prior to the end of the then-current term.
+
+4.3 Termination for Cause
+Either party may terminate this Agreement for cause upon thirty (30) days' written notice if the other party:
+
+(a) Materially breaches this Agreement and fails to cure within the notice period;
+(b) Becomes insolvent, files for bankruptcy, or makes an assignment for the benefit of creditors;
+(c) Ceases to operate in the ordinary course of business.
+
+4.4 Termination for Convenience
+Licensee may terminate this Agreement for convenience upon ninety (90) days' written notice, provided that:
+
+(a) Licensee pays all fees through the end of the then-current term;
+(b) No refund shall be provided for prepaid fees;
+(c) Licensee complies with all obligations under Article 4.6 (Effect of Termination).
+
+4.5 Suspension of Services
+Licensor may suspend access to the Licensed Software without liability if:
+
+(a) Licensee's account is more than thirty (30) days past due;
+(b) Licensee's use poses a security risk or violates applicable laws;
+(c) Required by law or court order.
+
+Licensor shall provide notice before suspension except in cases of emergency or legal requirement.
+
+4.6 Effect of Termination
+Upon termination or expiration of this Agreement:
+
+(a) All licenses granted hereunder shall immediately terminate;
+(b) Licensee shall cease all use of the Licensed Software and Documentation;
+(c) Licensee shall return or destroy all copies of Confidential Information and Documentation;
+(d) Licensee shall have thirty (30) days to export data from the Licensed Software;
+(e) Licensor may delete Licensee's data after the export period;
+(f) All payment obligations accrued prior to termination remain due;
+(g) Provisions that by their nature should survive termination shall survive.
+
+========================================
+ARTICLE 5 - SUPPORT AND MAINTENANCE
+========================================
+
+5.1 Standard Support
+Licensor shall provide Standard Support Services as detailed in Exhibit B, including:
+
+(a) Email support during Business Hours (9 AM - 5 PM Pacific Time, Monday-Friday)
+(b) Response times based on severity:
+    - Critical: 2 hours
+    - High: 4 hours
+    - Medium: 1 business day
+    - Low: 2 business days
+
+(c) Access to online knowledge base and documentation
+(d) Software updates and patches
+(e) Bug fixes and error corrections
+
+5.2 Premium Support
+Premium Support is available for additional fees and includes:
+
+(a) 24/7/365 phone and email support
+(b) Faster response times:
+    - Critical: 30 minutes
+    - High: 1 hour
+    - Medium: 4 hours
+    - Low: 1 business day
+
+(c) Dedicated customer success manager
+(d) Quarterly business reviews
+(e) Priority access to new features
+
+Premium Support: $50,000 per year (in addition to Subscription Fees)
+
+5.3 Maintenance Windows
+Licensor may perform scheduled maintenance during the following windows:
+
+- Routine maintenance: Sundays 12 AM - 6 AM Pacific Time
+- Emergency maintenance: As needed with best efforts notification
+
+Licensor shall provide at least seventy-two (72) hours' notice for planned maintenance.
+
+5.4 Service Level Agreement
+Licensor commits to the SLA terms specified in Exhibit A, including:
+
+- 99.9% uptime guarantee (excluding planned maintenance)
+- Service credits for SLA violations
+- Reporting and monitoring procedures
+
+========================================
+ARTICLE 6 - DATA AND SECURITY
+========================================
+
+6.1 Data Ownership
+As between the parties, Licensee retains all right, title, and interest in and to Licensee Data. Licensee hereby grants Licensor a limited license to access, use, and process Licensee Data solely for purposes of providing the Licensed Software and Support Services.
+
+6.2 Data Security
+Licensor shall:
+
+(a) Implement and maintain reasonable administrative, physical, and technical safeguards;
+(b) Encrypt data at rest and in transit using industry-standard protocols (AES-256, TLS 1.3);
+(c) Maintain SOC 2 Type II certification;
+(d) Conduct annual third-party security audits;
+(e) Implement role-based access controls;
+(f) Provide audit logs for Licensee's access to data;
+(g) Maintain incident response and breach notification procedures.
+
+6.3 Data Privacy
+Licensor shall comply with all applicable data protection laws, including GDPR, CCPA, and HIPAA (if applicable). The parties shall execute a Data Processing Addendum as set forth in Exhibit C.
+
+6.4 Data Backup
+Licensor shall:
+
+(a) Perform daily backups of Licensee Data;
+(b) Retain backups for thirty (30) days;
+(c) Store backups in geographically diverse locations;
+(d) Test backup restoration procedures quarterly.
+
+6.5 Data Breach Notification
+In the event of a security breach affecting Licensee Data, Licensor shall:
+
+(a) Notify Licensee within seventy-two (72) hours of discovery;
+(b) Provide details of the breach, data affected, and remediation steps;
+(c) Cooperate with Licensee's investigation and notification requirements;
+(d) Take corrective action at Licensor's expense.
+
+========================================
+ARTICLE 7 - INTELLECTUAL PROPERTY
+========================================
+
+7.1 Ownership
+Licensor retains all right, title, and interest in and to:
+
+(a) The Licensed Software and Documentation;
+(b) All Intellectual Property Rights therein;
+(c) All modifications, enhancements, and derivative works;
+(d) All trade secrets, algorithms, and methodologies.
+
+Nothing in this Agreement transfers ownership to Licensee.
+
+7.2 Feedback
+If Licensee provides suggestions, enhancement requests, or feedback regarding the Licensed Software ("Feedback"), Licensor may use such Feedback without restriction or compensation to Licensee. Licensee hereby assigns to Licensor all rights in such Feedback.
+
+7.3 Trademark License
+Licensor grants Licensee a limited, non-exclusive license to use Licensor's trademarks solely to identify the Licensed Software during the Term. All use is subject to Licensor's trademark usage guidelines. All goodwill arising from such use inures to Licensor's benefit.
+
+========================================
+ARTICLE 8 - WARRANTIES AND DISCLAIMERS
+========================================
+
+8.1 Mutual Warranties
+Each party represents and warrants that:
+
+(a) It has full power and authority to enter into this Agreement;
+(b) This Agreement constitutes a valid and binding obligation;
+(c) No consent of any third party is required;
+(d) Performance will not violate any other agreement or law.
+
+8.2 Licensor Warranties
+Licensor warrants that:
+
+(a) The Licensed Software will perform substantially in accordance with the Documentation;
+(b) Licensor has the right to grant the licenses herein;
+(c) The Licensed Software does not infringe any third-party Intellectual Property Rights;
+(d) Services will be performed in a professional and workmanlike manner.
+
+8.3 Warranty Remedy
+For breach of warranty, Licensor shall re-perform non-conforming services or, if unable to correct, refund prepaid fees for the non-conforming period. This is Licensee's sole and exclusive remedy for warranty breach.
+
+8.4 DISCLAIMER
+EXCEPT AS EXPRESSLY PROVIDED HEREIN, THE LICENSED SOFTWARE AND SERVICES ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND. LICENSOR DISCLAIMS ALL OTHER WARRANTIES, EXPRESS OR IMPLIED, INCLUDING MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT. LICENSOR DOES NOT WARRANT THAT THE LICENSED SOFTWARE WILL BE UNINTERRUPTED OR ERROR-FREE.
+
+========================================
+ARTICLE 9 - LIMITATION OF LIABILITY
+========================================
+
+9.1 Limitation of Liability
+EXCEPT FOR EXCLUDED CLAIMS, NEITHER PARTY'S AGGREGATE LIABILITY ARISING OUT OF OR RELATED TO THIS AGREEMENT SHALL EXCEED THE FEES PAID BY LICENSEE IN THE TWELVE (12) MONTHS PRECEDING THE CLAIM.
+
+9.2 Exclusion of Consequential Damages
+NEITHER PARTY SHALL BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, INCLUDING LOST PROFITS, LOST REVENUE, LOSS OF DATA, OR COST OF SUBSTITUTE GOODS OR SERVICES, REGARDLESS OF THE THEORY OF LIABILITY AND EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+
+9.3 Excluded Claims
+The limitations in this Article 9 do not apply to:
+
+(a) Either party's indemnification obligations under Article 10;
+(b) Licensee's payment obligations;
+(c) Breach of confidentiality obligations;
+(d) Infringement of Intellectual Property Rights;
+(e) Gross negligence or willful misconduct.
+
+========================================
+ARTICLE 10 - INDEMNIFICATION
+========================================
+
+10.1 Licensor Indemnification
+Licensor shall defend, indemnify, and hold harmless Licensee from third-party claims that the Licensed Software infringes any Intellectual Property Rights. If such claim arises, Licensor may, at its option:
+
+(a) Obtain rights for Licensee to continue using the Licensed Software;
+(b) Replace or modify the Licensed Software to be non-infringing; or
+(c) Terminate this Agreement and refund prepaid fees on a pro-rata basis.
+
+This obligation does not apply to claims arising from:
+- Modification of the Licensed Software by Licensee;
+- Use in combination with non-Licensor products;
+- Use after notice to discontinue use;
+- Use in violation of this Agreement.
+
+10.2 Licensee Indemnification
+Licensee shall defend, indemnify, and hold harmless Licensor from third-party claims arising from:
+
+(a) Licensee's use of the Licensed Software in violation of this Agreement;
+(b) Licensee Data or content;
+(c) Violation of applicable laws by Licensee;
+(d) Negligence or willful misconduct of Licensee.
+
+10.3 Indemnification Procedures
+The indemnified party shall:
+
+(a) Promptly notify the indemnifying party of the claim;
+(b) Grant control of defense and settlement to the indemnifying party;
+(c) Cooperate reasonably in the defense;
+(d) Not settle without indemnifying party's consent.
+
+========================================
+ARTICLE 11 - CONFIDENTIALITY
+========================================
+
+11.1 Confidentiality Obligations
+Each party shall:
+
+(a) Maintain Confidential Information in strict confidence;
+(b) Use Confidential Information only for purposes of this Agreement;
+(c) Limit disclosure to employees and contractors with a need to know;
+(d) Protect Confidential Information with same care as own confidential information, but no less than reasonable care.
+
+11.2 Exceptions
+Confidentiality obligations do not apply to information that:
+
+(a) Is or becomes publicly available through no breach of this Agreement;
+(b) Was rightfully known prior to disclosure;
+(c) Is independently developed without use of Confidential Information;
+(d) Is rightfully received from a third party without confidentiality restriction;
+(e) Must be disclosed pursuant to law or court order (with notice to disclosing party).
+
+11.3 Term of Confidentiality
+Confidentiality obligations survive termination for five (5) years, except trade secrets which remain confidential indefinitely.
+
+========================================
+ARTICLE 12 - GENERAL PROVISIONS
+========================================
+
+12.1 Governing Law
+This Agreement shall be governed by and construed in accordance with the laws of the State of California, without regard to conflicts of law principles.
+
+12.2 Dispute Resolution
+Any dispute arising from this Agreement shall be resolved as follows:
+
+(a) Good Faith Negotiations: Parties shall first attempt to resolve through good faith negotiations for thirty (30) days.
+
+(b) Mediation: If unresolved, parties shall participate in non-binding mediation administered by JAMS in San Francisco, California.
+
+(c) Arbitration: If mediation fails, disputes shall be resolved through binding arbitration administered by JAMS under its Commercial Arbitration Rules. One arbitrator shall be appointed. Arbitration shall occur in San Francisco, California. The arbitrator's award may be entered as a judgment in any court of competent jurisdiction.
+
+(d) Exception: Either party may seek injunctive relief in court for breach of confidentiality or Intellectual Property Rights.
+
+12.3 Force Majeure
+Neither party shall be liable for failure to perform due to causes beyond reasonable control, including acts of God, war, terrorism, pandemic, government action, natural disasters, or labor disputes. The affected party shall notify the other promptly and use reasonable efforts to minimize impact. If force majeure continues for more than ninety (90) days, either party may terminate this Agreement without liability.
+
+12.4 Assignment
+Neither party may assign this Agreement without prior written consent, except to a successor in a merger, acquisition, or sale of substantially all assets. Any attempted assignment in violation is void. This Agreement binds and benefits the parties' successors and permitted assigns.
+
+12.5 Notices
+All notices must be in writing and delivered:
+
+(a) By personal delivery (effective immediately);
+(b) By certified mail, return receipt requested (effective three days after mailing);
+(c) By overnight courier (effective one day after sending);
+(d) By email with read receipt (effective upon receipt).
+
+Notices to Licensor:
+TechSolutions Inc.
+Attn: Legal Department
+legal@techsolutions.com
+
+Notices to Licensee:
+GlobalCorp Enterprises LLC
+Attn: Chief Technology Officer
+cto@globalcorp.com
+
+12.6 Entire Agreement
+This Agreement, including all exhibits and order forms, constitutes the entire agreement between the parties and supersedes all prior agreements, whether oral or written. This Agreement may only be modified by written amendment signed by both parties.
+
+12.7 Severability
+If any provision is held invalid or unenforceable, the remaining provisions shall remain in full force and effect, and the invalid provision shall be modified to be valid and enforceable to the maximum extent.
+
+12.8 Waiver
+No waiver of any provision shall be effective unless in writing and signed by the waiving party. No waiver shall constitute a continuing waiver or waiver of any other provision.
+
+12.9 Independent Contractors
+The parties are independent contractors. Nothing in this Agreement creates a partnership, joint venture, agency, or employment relationship. Neither party may bind the other.
+
+12.10 Counterparts
+This Agreement may be executed in counterparts, each of which shall be deemed an original and all of which together shall constitute one agreement. Electronic signatures have the same effect as original signatures.
+
+========================================
+SIGNATURE PAGE
+========================================
+
+IN WITNESS WHEREOF, the parties have executed this Agreement as of the Effective Date.
+
+LICENSOR:
+TechSolutions Inc.
+
+By: _______________________________
+Name: Sarah Johnson
+Title: Chief Executive Officer
+Date: January 15, 2026
+
+LICENSEE:
+GlobalCorp Enterprises LLC
+
+By: _______________________________
+Name: Michael Chen
+Title: Chief Technology Officer
+Date: January 15, 2026
+
+========================================
+EXHIBIT A - SERVICE LEVEL AGREEMENT
+========================================
+
+1. Availability: 99.9% uptime guarantee (excluding planned maintenance)
+2. Response Times: As specified in Article 5.1
+3. Performance Metrics: Page load time < 2 seconds for 95% of requests
+4. Service Credits: 10% monthly fee credit for each 0.1% below SLA
+5. Reporting: Monthly uptime and performance reports
+
+========================================
+EXHIBIT B - SUPPORT SERVICES
+========================================
+
+1. Standard Support included with Subscription
+2. Support channels: Email, phone during business hours
+3. Knowledge base and community forums
+4. Software updates and patches
+5. Bug fixes and error corrections
+
+========================================
+EXHIBIT C - DATA PROCESSING ADDENDUM
+========================================
+
+To be executed separately pursuant to applicable data protection regulations.
+
+========================================
+END OF AGREEMENT
+========================================

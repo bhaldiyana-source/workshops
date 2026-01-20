@@ -1,0 +1,345 @@
+PRODUCT INSTALLATION AND SETUP GUIDE
+Version 2.0 | Updated January 2026
+
+========================================
+TABLE OF CONTENTS
+========================================
+
+1. Introduction
+2. System Requirements
+3. Installation Steps
+4. Initial Configuration
+5. Troubleshooting
+6. Support Information
+
+========================================
+1. INTRODUCTION
+========================================
+
+Welcome to the comprehensive installation and setup guide for Product XYZ. This guide will walk you through the complete process of installing, configuring, and verifying your Product XYZ installation.
+
+Product XYZ is an enterprise-grade solution designed to streamline your workflow and increase productivity. Before beginning the installation, please ensure you have read the safety instructions and have all necessary prerequisites in place.
+
+Key Features:
+- Cloud-native architecture
+- Real-time data processing
+- Advanced security features
+- Scalable infrastructure
+- 24/7 monitoring capabilities
+
+========================================
+2. SYSTEM REQUIREMENTS
+========================================
+
+Hardware Requirements:
+- CPU: 8 cores or more (recommended: 16 cores)
+- RAM: 32 GB minimum (recommended: 64 GB)
+- Storage: 500 GB SSD (recommended: 1 TB NVMe)
+- Network: 1 Gbps ethernet connection
+
+Software Requirements:
+- Operating System: Ubuntu 20.04 LTS or later, RHEL 8.x, Windows Server 2019+
+- Python: Version 3.8 or higher
+- Java: JDK 11 or higher
+- Docker: Version 20.10 or higher
+- Kubernetes: Version 1.21 or higher (for clustered deployments)
+
+Network Requirements:
+- Outbound HTTPS access (port 443)
+- Internal cluster communication (ports 8080-8090)
+- Database connectivity (port 5432 for PostgreSQL)
+
+========================================
+3. INSTALLATION STEPS
+========================================
+
+Step 1: Download Installation Package
+--------------------------------------
+Visit the official website and download the latest installation package:
+- Navigate to https://download.productxyz.com
+- Select your operating system
+- Choose the appropriate version (Standard or Enterprise)
+- Download the installer package
+
+The package will be approximately 2.5 GB in size. Download time will vary based on your internet connection speed.
+
+Step 2: Verify Package Integrity
+---------------------------------
+Before installation, verify the downloaded package:
+
+For Linux/Mac:
+$ sha256sum product-xyz-installer.tar.gz
+$ cat product-xyz-installer.tar.gz.sha256
+
+Compare the checksums to ensure file integrity. If checksums do not match, re-download the package.
+
+For Windows:
+> certutil -hashfile product-xyz-installer.exe SHA256
+
+Step 3: Extract and Prepare
+----------------------------
+Extract the installation files:
+
+Linux/Mac:
+$ tar -xzf product-xyz-installer.tar.gz
+$ cd product-xyz-installer
+
+Windows:
+Right-click the installer and select "Run as Administrator"
+
+Step 4: Run Pre-installation Checks
+------------------------------------
+The installer includes a pre-flight check utility:
+
+$ ./preflight-check.sh
+
+This will verify:
+- System meets minimum requirements
+- Required ports are available
+- Dependencies are installed
+- Sufficient disk space is available
+- Network connectivity is established
+
+Address any warnings or errors before proceeding.
+
+Step 5: Execute Installation
+-----------------------------
+Run the main installation script:
+
+Linux/Mac:
+$ sudo ./install.sh --mode interactive
+
+Windows:
+Run installer.exe and follow the GUI prompts
+
+During installation, you will be prompted for:
+- Installation directory (default: /opt/product-xyz)
+- Administrator email address
+- Database configuration
+- SSL certificate information
+- License key
+
+The installation process typically takes 10-15 minutes.
+
+Step 6: Verify Installation
+----------------------------
+After installation completes, verify the services are running:
+
+$ sudo systemctl status product-xyz
+$ curl http://localhost:8080/health
+
+Expected output:
+{
+  "status": "healthy",
+  "version": "2.0.0",
+  "uptime": "00:00:45"
+}
+
+========================================
+4. INITIAL CONFIGURATION
+========================================
+
+Database Setup
+--------------
+Configure the database connection:
+
+1. Access the admin console: http://localhost:8080/admin
+2. Navigate to Settings > Database
+3. Enter connection details:
+   - Host: your-db-server.com
+   - Port: 5432
+   - Database: productxyz_db
+   - Username: admin
+   - Password: [secure password]
+4. Click "Test Connection" to verify
+5. Save configuration
+
+User Management
+---------------
+Create the first administrator account:
+
+$ product-xyz-cli user create \
+  --username admin \
+  --email admin@company.com \
+  --role administrator
+
+You will be prompted to set a password. Follow these requirements:
+- Minimum 12 characters
+- Include uppercase and lowercase letters
+- Include numbers and special characters
+- No common dictionary words
+
+SSL Certificate Configuration
+------------------------------
+For production deployments, configure SSL:
+
+1. Obtain SSL certificate from your certificate authority
+2. Copy certificate files to: /opt/product-xyz/certs/
+3. Update configuration:
+   $ product-xyz-cli config set ssl.enabled true
+   $ product-xyz-cli config set ssl.cert /opt/product-xyz/certs/cert.pem
+   $ product-xyz-cli config set ssl.key /opt/product-xyz/certs/key.pem
+4. Restart the service:
+   $ sudo systemctl restart product-xyz
+
+Integration Setup
+-----------------
+Configure integrations with external systems:
+
+Single Sign-On (SSO):
+- Navigate to Settings > Authentication
+- Enable SSO
+- Enter IdP metadata URL
+- Configure attribute mapping
+
+External APIs:
+- Navigate to Settings > Integrations
+- Add API endpoint configurations
+- Enter authentication credentials
+- Test connections
+
+========================================
+5. TROUBLESHOOTING
+========================================
+
+Common Installation Issues
+--------------------------
+
+Issue: Installation fails with "Permission Denied"
+Solution: Ensure you're running the installer with administrator/root privileges
+Command: sudo ./install.sh
+
+Issue: Port 8080 already in use
+Solution: Either stop the conflicting service or configure Product XYZ to use a different port
+Command: product-xyz-cli config set server.port 8081
+
+Issue: Database connection fails
+Solution: 
+1. Verify database server is running
+2. Check firewall rules allow connection on port 5432
+3. Confirm credentials are correct
+4. Ensure database exists and user has appropriate permissions
+
+Issue: Service won't start after installation
+Solution:
+1. Check service logs: journalctl -u product-xyz
+2. Verify configuration file syntax: product-xyz-cli config validate
+3. Ensure all dependencies are installed: ./preflight-check.sh
+4. Check disk space: df -h
+
+Performance Issues
+------------------
+
+Symptom: Slow response times
+Possible Causes:
+- Insufficient memory allocation
+- Database not optimized
+- Network latency
+- Concurrent user limit reached
+
+Solutions:
+1. Increase memory allocation in config file
+2. Optimize database indexes
+3. Enable caching
+4. Scale horizontally by adding nodes
+
+Symptom: High CPU usage
+Possible Causes:
+- Resource-intensive queries
+- Background jobs running
+- Memory swapping
+
+Solutions:
+1. Review and optimize queries
+2. Adjust job scheduling
+3. Increase available RAM
+4. Enable query caching
+
+Logs and Diagnostics
+--------------------
+Important log locations:
+- Application logs: /var/log/product-xyz/application.log
+- Error logs: /var/log/product-xyz/error.log
+- Audit logs: /var/log/product-xyz/audit.log
+- System logs: journalctl -u product-xyz
+
+Enable debug logging:
+$ product-xyz-cli config set logging.level DEBUG
+$ sudo systemctl restart product-xyz
+
+Generate diagnostic report:
+$ product-xyz-cli diagnostics generate
+Report saved to: /tmp/product-xyz-diagnostics-2026-01-09.zip
+
+========================================
+6. SUPPORT INFORMATION
+========================================
+
+Documentation
+-------------
+Comprehensive documentation available at:
+https://docs.productxyz.com
+
+Knowledge Base:
+https://support.productxyz.com/kb
+
+API Documentation:
+https://api.productxyz.com/docs
+
+Community Support
+-----------------
+Forums: https://community.productxyz.com
+Discord: https://discord.gg/productxyz
+Stack Overflow: Tag your questions with [product-xyz]
+
+Commercial Support
+------------------
+For enterprise customers with support contracts:
+
+Email: support@productxyz.com
+Phone: 1-800-PROD-XYZ (available 24/7)
+Support Portal: https://support.productxyz.com
+
+Response Time SLAs:
+- Critical (P1): 1 hour
+- High (P2): 4 hours
+- Medium (P3): 1 business day
+- Low (P4): 2 business days
+
+Training and Certification
+---------------------------
+Available training courses:
+- Product XYZ Fundamentals (2 days)
+- Advanced Administration (3 days)
+- Developer Workshop (2 days)
+- Security Best Practices (1 day)
+
+Certification exams:
+- Certified Product XYZ Administrator
+- Certified Product XYZ Developer
+
+Register at: https://training.productxyz.com
+
+Product Updates
+---------------
+Stay informed about updates and releases:
+- Release Notes: https://productxyz.com/releases
+- Newsletter: Subscribe at https://productxyz.com/newsletter
+- Twitter: @ProductXYZ
+- LinkedIn: Product XYZ Official
+
+To check for updates:
+$ product-xyz-cli update check
+
+To apply updates:
+$ product-xyz-cli update apply --version 2.1.0
+
+Always backup your data before applying updates.
+
+========================================
+END OF DOCUMENT
+========================================
+
+Copyright © 2026 Product XYZ Inc. All rights reserved.
+
+This document is provided for informational purposes only. While every effort has been made to ensure accuracy, Product XYZ Inc. assumes no responsibility for errors or omissions. Product specifications and features are subject to change without notice.

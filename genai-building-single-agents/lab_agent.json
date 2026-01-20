@@ -1,0 +1,183 @@
+{
+  "agent_name": "Healthcare Assistant Agent",
+  "description": "An AI agent that helps healthcare staff access patient information, appointments, and prescription details.",
+  "version": "1.0.0",
+  "model_configuration": {
+    "endpoint": "databricks-meta-llama-3-1-70b-instruct",
+    "provider": "databricks-foundation-models",
+    "parameters": {
+      "temperature": 0.1,
+      "max_tokens": 2000,
+      "top_p": 0.95
+    },
+    "notes": "TODO: Students may want to experiment with different temperature values for their use case"
+  },
+  "agent_framework": {
+    "type": "langchain",
+    "pattern": "react",
+    "max_iterations": 5,
+    "handle_parsing_errors": true,
+    "return_intermediate_steps": true,
+    "verbose": true,
+    "notes": "TODO: Students may adjust max_iterations based on their testing"
+  },
+  "tools": [
+    {
+      "type": "unity_catalog_function",
+      "function_name": "main.{username}_healthcare_lab.get_patient_info",
+      "description": "TODO: Students should verify this matches their function name and description",
+      "parameters": {
+        "patient_id": {
+          "type": "string",
+          "description": "Patient ID (e.g., P001)",
+          "required": true
+        }
+      },
+      "returns": {
+        "type": "struct",
+        "fields": [
+          "patient_id",
+          "name",
+          "age",
+          "insurance_type",
+          "primary_doctor",
+          "phone"
+        ]
+      }
+    },
+    {
+      "type": "unity_catalog_function",
+      "function_name": "main.{username}_healthcare_lab.get_patient_appointments",
+      "description": "TODO: Students should verify this matches their function",
+      "parameters": {
+        "patient_id": {
+          "type": "string",
+          "description": "Patient ID (e.g., P001)",
+          "required": true
+        }
+      },
+      "returns": {
+        "type": "table",
+        "fields": [
+          "appointment_id",
+          "doctor_name",
+          "appointment_date",
+          "appointment_time",
+          "reason",
+          "status"
+        ]
+      }
+    },
+    {
+      "type": "unity_catalog_function",
+      "function_name": "main.{username}_healthcare_lab.get_patient_prescriptions",
+      "description": "TODO: Students should verify this matches their function",
+      "parameters": {
+        "patient_id": {
+          "type": "string",
+          "description": "Patient ID (e.g., P001)",
+          "required": true
+        }
+      },
+      "returns": {
+        "type": "table",
+        "fields": [
+          "prescription_id",
+          "medication",
+          "dosage",
+          "frequency",
+          "prescribed_date",
+          "doctor_name"
+        ]
+      }
+    },
+    {
+      "type": "unity_catalog_function",
+      "function_name": "main.{username}_healthcare_lab.get_doctor_schedule",
+      "description": "TODO: Students should verify this matches their function",
+      "parameters": {
+        "doctor_name": {
+          "type": "string",
+          "description": "Doctor name (e.g., Dr. Williams)",
+          "required": true
+        }
+      },
+      "returns": {
+        "type": "table",
+        "fields": [
+          "appointment_id",
+          "patient_id",
+          "appointment_date",
+          "appointment_time",
+          "reason"
+        ]
+      }
+    }
+  ],
+  "system_prompt": "You are a helpful AI assistant for HealthCare Plus. You help staff and patients with looking up patient information, checking appointment schedules, and reviewing prescription details. Always be professional, accurate, and protect patient privacy. Use the available tools to get factual information rather than making assumptions.",
+  "tracing": {
+    "enabled": true,
+    "framework": "mlflow",
+    "auto_log": true
+  },
+  "deployment": {
+    "environment": "lab",
+    "warehouse_id": "TODO_UPDATE_WITH_YOUR_WAREHOUSE_ID",
+    "catalog": "main",
+    "schema": "{username}_healthcare_lab",
+    "notes": "Students must update warehouse_id and ensure schema name matches their configuration"
+  },
+  "test_queries": [
+    {
+      "query": "What is the primary doctor for patient P001?",
+      "expected_tools": ["get_patient_info"],
+      "difficulty": "easy",
+      "notes": "Simple lookup to verify basic tool calling"
+    },
+    {
+      "query": "How many appointments does patient P001 have scheduled?",
+      "expected_tools": ["get_patient_appointments"],
+      "difficulty": "easy",
+      "notes": "Tests table-valued function and counting"
+    },
+    {
+      "query": "What medications is patient P003 currently taking?",
+      "expected_tools": ["get_patient_prescriptions"],
+      "difficulty": "easy",
+      "notes": "Tests prescription lookup"
+    },
+    {
+      "query": "What appointments does Dr. Williams have scheduled?",
+      "expected_tools": ["get_doctor_schedule"],
+      "difficulty": "medium",
+      "notes": "Tests the challenge function students created"
+    },
+    {
+      "query": "Tell me about patient P002 - who is their doctor, what appointments do they have, and are they on any medications?",
+      "expected_tools": ["get_patient_info", "get_patient_appointments", "get_patient_prescriptions"],
+      "difficulty": "hard",
+      "notes": "Multi-tool query requiring coordination"
+    }
+  ],
+  "evaluation_criteria": {
+    "accuracy": "Does the agent use the correct tools for each query?",
+    "completeness": "Does the agent provide complete answers?",
+    "efficiency": "Does the agent minimize unnecessary tool calls?",
+    "error_handling": "Does the agent handle edge cases gracefully?"
+  },
+  "student_tasks": [
+    "TODO 1: Update warehouse_id in deployment section",
+    "TODO 2: Verify all function names match your created functions",
+    "TODO 3: Test all queries and document results",
+    "TODO 4: Experiment with different temperature values",
+    "TODO 5: Complete the challenge exercises",
+    "TODO 6: Analyze MLflow traces for your agent runs"
+  ],
+  "metadata": {
+    "created_by": "Databricks Academy",
+    "created_date": "2025-01-09",
+    "last_updated": "2025-01-09",
+    "tags": ["lab", "langchain", "healthcare", "student-exercise"],
+    "lab_name": "Building a LangChain Agent - Healthcare Lab"
+  }
+}

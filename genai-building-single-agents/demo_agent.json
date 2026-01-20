@@ -1,0 +1,149 @@
+{
+  "agent_name": "E-commerce Customer Service Agent",
+  "description": "An AI agent that helps with customer inquiries, order information, and inventory management for an e-commerce platform.",
+  "version": "1.0.0",
+  "model_configuration": {
+    "endpoint": "databricks-meta-llama-3-1-70b-instruct",
+    "provider": "databricks-foundation-models",
+    "parameters": {
+      "temperature": 0.1,
+      "max_tokens": 2000,
+      "top_p": 0.95
+    }
+  },
+  "agent_framework": {
+    "type": "langchain",
+    "pattern": "react",
+    "max_iterations": 5,
+    "handle_parsing_errors": true,
+    "return_intermediate_steps": true,
+    "verbose": true
+  },
+  "tools": [
+    {
+      "type": "unity_catalog_function",
+      "function_name": "main.agent_tools.get_customer_info",
+      "description": "Retrieves complete information about a customer by their customer ID",
+      "parameters": {
+        "customer_id": {
+          "type": "string",
+          "description": "Customer ID (e.g., C001)",
+          "required": true
+        }
+      },
+      "returns": {
+        "type": "struct",
+        "fields": [
+          "customer_id",
+          "name",
+          "email",
+          "tier",
+          "join_date",
+          "total_lifetime_value"
+        ]
+      }
+    },
+    {
+      "type": "unity_catalog_function",
+      "function_name": "main.agent_tools.get_customer_orders",
+      "description": "Retrieves all orders for a specific customer",
+      "parameters": {
+        "customer_id": {
+          "type": "string",
+          "description": "Customer ID (e.g., C001)",
+          "required": true
+        }
+      },
+      "returns": {
+        "type": "table",
+        "fields": [
+          "order_id",
+          "order_date",
+          "total_amount",
+          "status",
+          "product_category"
+        ]
+      }
+    },
+    {
+      "type": "unity_catalog_function",
+      "function_name": "main.agent_tools.check_inventory",
+      "description": "Checks inventory levels for a specific product",
+      "parameters": {
+        "product_id": {
+          "type": "string",
+          "description": "Product ID (e.g., P001)",
+          "required": true
+        }
+      },
+      "returns": {
+        "type": "struct",
+        "fields": [
+          "product_id",
+          "product_name",
+          "category",
+          "stock_quantity",
+          "price",
+          "needs_reorder"
+        ]
+      }
+    },
+    {
+      "type": "unity_catalog_function",
+      "function_name": "main.agent_tools.get_low_stock_products",
+      "description": "Retrieves all products that are at or below their reorder level",
+      "parameters": {},
+      "returns": {
+        "type": "table",
+        "fields": [
+          "product_id",
+          "product_name",
+          "category",
+          "stock_quantity",
+          "reorder_level"
+        ]
+      }
+    }
+  ],
+  "system_prompt": "You are a helpful AI assistant for an e-commerce company. You have access to tools that can query customer information, orders, and inventory. Your goal is to answer user questions accurately using the available tools. Always use tools to get factual information rather than making assumptions. Be professional, helpful, and concise in your responses.",
+  "tracing": {
+    "enabled": true,
+    "framework": "mlflow",
+    "auto_log": true
+  },
+  "deployment": {
+    "environment": "demo",
+    "warehouse_id": "YOUR_WAREHOUSE_ID",
+    "catalog": "main",
+    "schema": "agent_tools"
+  },
+  "usage_examples": [
+    {
+      "query": "What tier is customer C001?",
+      "expected_tools": ["get_customer_info"],
+      "expected_behavior": "Agent should call get_customer_info with C001 and return the tier information"
+    },
+    {
+      "query": "How many orders has customer C001 placed and what's the total value?",
+      "expected_tools": ["get_customer_orders"],
+      "expected_behavior": "Agent should call get_customer_orders, count the orders, and sum the total amounts"
+    },
+    {
+      "query": "Which products are low on stock?",
+      "expected_tools": ["get_low_stock_products"],
+      "expected_behavior": "Agent should call get_low_stock_products and list the products with low inventory"
+    },
+    {
+      "query": "Check inventory for product P004 and tell me if we need to reorder",
+      "expected_tools": ["check_inventory"],
+      "expected_behavior": "Agent should call check_inventory and report the stock level and reorder status"
+    }
+  ],
+  "metadata": {
+    "created_by": "Databricks Academy",
+    "created_date": "2025-01-09",
+    "last_updated": "2025-01-09",
+    "tags": ["demo", "langchain", "e-commerce", "customer-service"],
+    "lab_name": "Building Single Agents with LangChain"
+  }
+}
