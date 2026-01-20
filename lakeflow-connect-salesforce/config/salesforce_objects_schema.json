@@ -1,0 +1,290 @@
+{
+  "_description": "Standard Salesforce object schemas with field definitions, data types, and relationships",
+  "_usage": "Reference this schema when configuring ingestion pipelines and field mappings",
+  
+  "Account": {
+    "api_name": "Account",
+    "label": "Account",
+    "description": "Organization or company involved with your business",
+    "key_field": "Id",
+    "name_field": "Name",
+    "is_custom": false,
+    
+    "system_fields": {
+      "Id": {"type": "id", "required": true, "description": "Unique identifier"},
+      "IsDeleted": {"type": "boolean", "required": true, "description": "Indicates if record is deleted"},
+      "CreatedDate": {"type": "datetime", "required": true, "description": "Date/time record was created"},
+      "CreatedById": {"type": "reference", "required": true, "description": "User who created the record", "references": "User"},
+      "LastModifiedDate": {"type": "datetime", "required": true, "description": "Date/time record was last modified"},
+      "LastModifiedById": {"type": "reference", "required": true, "description": "User who last modified the record", "references": "User"},
+      "SystemModstamp": {"type": "datetime", "required": true, "description": "System timestamp for change tracking (CDC)"}
+    },
+    
+    "standard_fields": {
+      "Name": {"type": "string", "length": 255, "required": true, "description": "Account name"},
+      "Type": {"type": "picklist", "values": ["Prospect", "Customer - Direct", "Customer - Channel", "Channel Partner / Reseller", "Installation Partner", "Technology Partner", "Other"], "description": "Account type classification"},
+      "Industry": {"type": "picklist", "description": "Industry category"},
+      "AnnualRevenue": {"type": "currency", "description": "Annual revenue amount"},
+      "NumberOfEmployees": {"type": "integer", "description": "Number of employees"},
+      "Phone": {"type": "phone", "length": 40, "description": "Main phone number"},
+      "Fax": {"type": "phone", "length": 40, "description": "Fax number"},
+      "Website": {"type": "url", "length": 255, "description": "Company website URL"},
+      "BillingStreet": {"type": "textarea", "description": "Billing street address"},
+      "BillingCity": {"type": "string", "length": 40, "description": "Billing city"},
+      "BillingState": {"type": "string", "length": 80, "description": "Billing state/province"},
+      "BillingPostalCode": {"type": "string", "length": 20, "description": "Billing postal code"},
+      "BillingCountry": {"type": "string", "length": 80, "description": "Billing country"},
+      "ShippingStreet": {"type": "textarea", "description": "Shipping street address"},
+      "ShippingCity": {"type": "string", "length": 40, "description": "Shipping city"},
+      "ShippingState": {"type": "string", "length": 80, "description": "Shipping state/province"},
+      "ShippingPostalCode": {"type": "string", "length": 20, "description": "Shipping postal code"},
+      "ShippingCountry": {"type": "string", "length": 80, "description": "Shipping country"},
+      "OwnerId": {"type": "reference", "required": true, "description": "User who owns the account", "references": "User"},
+      "ParentId": {"type": "reference", "description": "Parent account (for hierarchies)", "references": "Account"}
+    },
+    
+    "relationships": {
+      "Contacts": {"type": "child", "related_object": "Contact", "field": "AccountId", "relationship_type": "Lookup"},
+      "Opportunities": {"type": "child", "related_object": "Opportunity", "field": "AccountId", "relationship_type": "Lookup"},
+      "Cases": {"type": "child", "related_object": "Case", "field": "AccountId", "relationship_type": "Lookup"}
+    }
+  },
+  
+  "Contact": {
+    "api_name": "Contact",
+    "label": "Contact",
+    "description": "Individual person associated with an Account",
+    "key_field": "Id",
+    "name_field": "Name",
+    "is_custom": false,
+    
+    "system_fields": {
+      "Id": {"type": "id", "required": true},
+      "IsDeleted": {"type": "boolean", "required": true},
+      "CreatedDate": {"type": "datetime", "required": true},
+      "CreatedById": {"type": "reference", "required": true, "references": "User"},
+      "LastModifiedDate": {"type": "datetime", "required": true},
+      "LastModifiedById": {"type": "reference", "required": true, "references": "User"},
+      "SystemModstamp": {"type": "datetime", "required": true}
+    },
+    
+    "standard_fields": {
+      "AccountId": {"type": "reference", "description": "Related Account", "references": "Account"},
+      "FirstName": {"type": "string", "length": 40, "description": "First name"},
+      "LastName": {"type": "string", "length": 80, "required": true, "description": "Last name"},
+      "Name": {"type": "string", "length": 121, "formula": "FirstName + ' ' + LastName", "description": "Full name (read-only)"},
+      "Email": {"type": "email", "length": 80, "description": "Email address"},
+      "Phone": {"type": "phone", "length": 40, "description": "Phone number"},
+      "MobilePhone": {"type": "phone", "length": 40, "description": "Mobile phone number"},
+      "Title": {"type": "string", "length": 128, "description": "Job title"},
+      "Department": {"type": "string", "length": 80, "description": "Department"},
+      "MailingStreet": {"type": "textarea", "description": "Mailing street address"},
+      "MailingCity": {"type": "string", "length": 40, "description": "Mailing city"},
+      "MailingState": {"type": "string", "length": 80, "description": "Mailing state/province"},
+      "MailingPostalCode": {"type": "string", "length": 20, "description": "Mailing postal code"},
+      "MailingCountry": {"type": "string", "length": 80, "description": "Mailing country"},
+      "OwnerId": {"type": "reference", "required": true, "references": "User"}
+    },
+    
+    "relationships": {
+      "Account": {"type": "parent", "related_object": "Account", "field": "AccountId", "relationship_type": "Lookup"},
+      "Cases": {"type": "child", "related_object": "Case", "field": "ContactId", "relationship_type": "Lookup"}
+    }
+  },
+  
+  "Opportunity": {
+    "api_name": "Opportunity",
+    "label": "Opportunity",
+    "description": "Sales deal or pending business with an Account",
+    "key_field": "Id",
+    "name_field": "Name",
+    "is_custom": false,
+    
+    "system_fields": {
+      "Id": {"type": "id", "required": true},
+      "IsDeleted": {"type": "boolean", "required": true},
+      "CreatedDate": {"type": "datetime", "required": true},
+      "CreatedById": {"type": "reference", "required": true, "references": "User"},
+      "LastModifiedDate": {"type": "datetime", "required": true},
+      "LastModifiedById": {"type": "reference", "required": true, "references": "User"},
+      "SystemModstamp": {"type": "datetime", "required": true}
+    },
+    
+    "standard_fields": {
+      "AccountId": {"type": "reference", "required": true, "description": "Related Account", "references": "Account"},
+      "Name": {"type": "string", "length": 120, "required": true, "description": "Opportunity name"},
+      "StageName": {"type": "picklist", "required": true, "description": "Current sales stage", "values": ["Prospecting", "Qualification", "Needs Analysis", "Value Proposition", "Id. Decision Makers", "Perception Analysis", "Proposal/Price Quote", "Negotiation/Review", "Closed Won", "Closed Lost"]},
+      "Amount": {"type": "currency", "description": "Estimated total sale amount"},
+      "CloseDate": {"type": "date", "required": true, "description": "Expected close date"},
+      "Probability": {"type": "percent", "description": "Likelihood of close (0-100)"},
+      "Type": {"type": "picklist", "description": "Opportunity type"},
+      "LeadSource": {"type": "picklist", "description": "Source of the lead"},
+      "IsClosed": {"type": "boolean", "required": true, "description": "Indicates if opportunity is closed"},
+      "IsWon": {"type": "boolean", "required": true, "description": "Indicates if opportunity was won"},
+      "ForecastCategory": {"type": "picklist", "description": "Forecast category", "values": ["Pipeline", "Best Case", "Commit", "Omitted", "Closed"]},
+      "ForecastCategoryName": {"type": "string", "description": "Forecast category name"},
+      "OwnerId": {"type": "reference", "required": true, "references": "User"}
+    },
+    
+    "relationships": {
+      "Account": {"type": "parent", "related_object": "Account", "field": "AccountId", "relationship_type": "Lookup"}
+    }
+  },
+  
+  "Lead": {
+    "api_name": "Lead",
+    "label": "Lead",
+    "description": "Prospective individual or company interested in your products/services",
+    "key_field": "Id",
+    "name_field": "Name",
+    "is_custom": false,
+    
+    "system_fields": {
+      "Id": {"type": "id", "required": true},
+      "IsDeleted": {"type": "boolean", "required": true},
+      "CreatedDate": {"type": "datetime", "required": true},
+      "CreatedById": {"type": "reference", "required": true, "references": "User"},
+      "LastModifiedDate": {"type": "datetime", "required": true},
+      "LastModifiedById": {"type": "reference", "required": true, "references": "User"},
+      "SystemModstamp": {"type": "datetime", "required": true}
+    },
+    
+    "standard_fields": {
+      "FirstName": {"type": "string", "length": 40, "description": "First name"},
+      "LastName": {"type": "string", "length": 80, "required": true, "description": "Last name"},
+      "Name": {"type": "string", "length": 121, "formula": "FirstName + ' ' + LastName", "description": "Full name"},
+      "Company": {"type": "string", "length": 255, "required": true, "description": "Company name"},
+      "Title": {"type": "string", "length": 128, "description": "Job title"},
+      "Email": {"type": "email", "length": 80, "description": "Email address"},
+      "Phone": {"type": "phone", "length": 40, "description": "Phone number"},
+      "MobilePhone": {"type": "phone", "length": 40, "description": "Mobile phone number"},
+      "Industry": {"type": "picklist", "description": "Industry"},
+      "Status": {"type": "picklist", "required": true, "description": "Lead status", "values": ["Open - Not Contacted", "Working - Contacted", "Closed - Converted", "Closed - Not Converted"]},
+      "Rating": {"type": "picklist", "description": "Lead rating (Hot, Warm, Cold)"},
+      "LeadSource": {"type": "picklist", "description": "Source of the lead"},
+      "IsConverted": {"type": "boolean", "required": true, "description": "Indicates if lead was converted"},
+      "ConvertedDate": {"type": "date", "description": "Date lead was converted"},
+      "ConvertedAccountId": {"type": "reference", "description": "Account created from conversion", "references": "Account"},
+      "ConvertedContactId": {"type": "reference", "description": "Contact created from conversion", "references": "Contact"},
+      "ConvertedOpportunityId": {"type": "reference", "description": "Opportunity created from conversion", "references": "Opportunity"},
+      "Street": {"type": "textarea", "description": "Street address"},
+      "City": {"type": "string", "length": 40, "description": "City"},
+      "State": {"type": "string", "length": 80, "description": "State/province"},
+      "PostalCode": {"type": "string", "length": 20, "description": "Postal code"},
+      "Country": {"type": "string", "length": 80, "description": "Country"},
+      "OwnerId": {"type": "reference", "required": true, "references": "User"}
+    }
+  },
+  
+  "Case": {
+    "api_name": "Case",
+    "label": "Case",
+    "description": "Customer service issue or inquiry",
+    "key_field": "Id",
+    "name_field": "CaseNumber",
+    "is_custom": false,
+    
+    "system_fields": {
+      "Id": {"type": "id", "required": true},
+      "IsDeleted": {"type": "boolean", "required": true},
+      "CreatedDate": {"type": "datetime", "required": true},
+      "CreatedById": {"type": "reference", "required": true, "references": "User"},
+      "LastModifiedDate": {"type": "datetime", "required": true},
+      "LastModifiedById": {"type": "reference", "required": true, "references": "User"},
+      "SystemModstamp": {"type": "datetime", "required": true}
+    },
+    
+    "standard_fields": {
+      "CaseNumber": {"type": "autonumber", "description": "Auto-generated case number"},
+      "AccountId": {"type": "reference", "description": "Related Account", "references": "Account"},
+      "ContactId": {"type": "reference", "description": "Related Contact", "references": "Contact"},
+      "Subject": {"type": "string", "length": 255, "description": "Case subject"},
+      "Description": {"type": "textarea", "length": 32000, "description": "Case description"},
+      "Status": {"type": "picklist", "required": true, "description": "Case status", "values": ["New", "Working", "Escalated", "Closed"]},
+      "Priority": {"type": "picklist", "description": "Case priority", "values": ["Low", "Medium", "High"]},
+      "Origin": {"type": "picklist", "description": "Case origin", "values": ["Phone", "Email", "Web", "Chat"]},
+      "Type": {"type": "picklist", "description": "Case type"},
+      "Reason": {"type": "picklist", "description": "Case reason"},
+      "IsClosed": {"type": "boolean", "required": true, "description": "Indicates if case is closed"},
+      "ClosedDate": {"type": "datetime", "description": "Date case was closed"},
+      "OwnerId": {"type": "reference", "required": true, "references": "User"}
+    },
+    
+    "relationships": {
+      "Account": {"type": "parent", "related_object": "Account", "field": "AccountId", "relationship_type": "Lookup"},
+      "Contact": {"type": "parent", "related_object": "Contact", "field": "ContactId", "relationship_type": "Lookup"}
+    }
+  },
+  
+  "Campaign": {
+    "api_name": "Campaign",
+    "label": "Campaign",
+    "description": "Marketing campaign or program",
+    "key_field": "Id",
+    "name_field": "Name",
+    "is_custom": false,
+    
+    "system_fields": {
+      "Id": {"type": "id", "required": true},
+      "IsDeleted": {"type": "boolean", "required": true},
+      "CreatedDate": {"type": "datetime", "required": true},
+      "CreatedById": {"type": "reference", "required": true, "references": "User"},
+      "LastModifiedDate": {"type": "datetime", "required": true},
+      "LastModifiedById": {"type": "reference", "required": true, "references": "User"},
+      "SystemModstamp": {"type": "datetime", "required": true}
+    },
+    
+    "standard_fields": {
+      "Name": {"type": "string", "length": 80, "required": true, "description": "Campaign name"},
+      "Type": {"type": "picklist", "description": "Campaign type"},
+      "Status": {"type": "picklist", "description": "Campaign status"},
+      "StartDate": {"type": "date", "description": "Campaign start date"},
+      "EndDate": {"type": "date", "description": "Campaign end date"},
+      "ExpectedRevenue": {"type": "currency", "description": "Expected revenue from campaign"},
+      "BudgetedCost": {"type": "currency", "description": "Budgeted cost"},
+      "ActualCost": {"type": "currency", "description": "Actual cost"},
+      "NumberSent": {"type": "double", "description": "Number of individuals targeted"},
+      "NumberOfLeads": {"type": "integer", "description": "Number of leads generated"},
+      "NumberOfConvertedLeads": {"type": "integer", "description": "Number of converted leads"},
+      "NumberOfContacts": {"type": "integer", "description": "Number of contacts"},
+      "NumberOfResponses": {"type": "integer", "description": "Number of responses"},
+      "NumberOfOpportunities": {"type": "integer", "description": "Number of opportunities"},
+      "NumberOfWonOpportunities": {"type": "integer", "description": "Number of won opportunities"},
+      "AmountAllOpportunities": {"type": "currency", "description": "Total amount of opportunities"},
+      "AmountWonOpportunities": {"type": "currency", "description": "Amount of won opportunities"},
+      "OwnerId": {"type": "reference", "required": true, "references": "User"}
+    }
+  },
+  
+  "_notes": {
+    "custom_objects": {
+      "naming_convention": "Custom objects end with __c (e.g., CustomProduct__c)",
+      "custom_fields": "Custom fields end with __c (e.g., Custom_Field__c)",
+      "relationships": "Custom relationship fields end with __r for parent relationships"
+    },
+    
+    "important_system_fields": {
+      "SystemModstamp": "Critical for CDC - automatically updated on any field change",
+      "IsDeleted": "Use to filter out soft-deleted records",
+      "Id": "18-character unique identifier (case-insensitive 15-character also exists)"
+    },
+    
+    "data_types": {
+      "id": "18-character unique identifier",
+      "string": "Text field with specified length",
+      "textarea": "Long text field",
+      "picklist": "Dropdown with predefined values",
+      "reference": "Foreign key to another object",
+      "datetime": "Date and time (stored in UTC)",
+      "date": "Date only",
+      "boolean": "True/false",
+      "currency": "Decimal with currency formatting",
+      "percent": "Decimal represented as percentage",
+      "phone": "Phone number (stored as string)",
+      "email": "Email address (validated format)",
+      "url": "Web address",
+      "integer": "Whole number",
+      "double": "Decimal number"
+    }
+  }
+}

@@ -1,0 +1,21 @@
+customer_id,first_name,last_name,email,phone,address,city,state,zip_code,created_date,last_updated
+1,John,Doe,john.doe@email.com,555-0101,123 Main St,Seattle,WA,98101,2024-01-01 10:00:00,2024-01-01 10:00:00
+2,Jane,Smith,jane.smith@email.com,555-0102,456 Oak Ave,Portland,OR,97201,2024-01-02 10:00:00,2024-01-02 10:00:00
+3,Bob,Johnson,bob.johnson@email.com,555-0103,789 Pine Rd,San Francisco,CA,94102,2024-01-03 10:00:00,2024-01-03 10:00:00
+4,Alice,Williams,alice.williams@email.com,555-0104,321 Elm St,Los Angeles,CA,90001,2024-01-04 10:00:00,2024-01-04 10:00:00
+5,Charlie,Brown,charlie.brown@email.com,555-0105,654 Maple Dr,Austin,TX,78701,2024-01-05 10:00:00,2024-01-05 10:00:00
+6,Diana,Martinez,diana.martinez@email.com,555-0106,987 Cedar Ln,Phoenix,AZ,85001,2024-01-06 10:00:00,2024-01-06 10:00:00
+7,Edward,Garcia,edward.garcia@email.com,555-0107,147 Birch Way,Denver,CO,80201,2024-01-07 10:00:00,2024-01-07 10:00:00
+8,Fiona,Rodriguez,fiona.rodriguez@email.com,555-0108,258 Spruce Ct,Boston,MA,02101,2024-01-08 10:00:00,2024-01-08 10:00:00
+9,George,Wilson,george.wilson@email.com,555-0109,369 Ash Blvd,Chicago,IL,60601,2024-01-09 10:00:00,2024-01-09 10:00:00
+10,Helen,Lee,helen.lee@email.com,555-0110,741 Walnut Ave,Miami,FL,33101,2024-01-10 10:00:00,2024-01-10 10:00:00
+11,Ivan,Anderson,ivan.anderson@email.com,555-0111,852 Cherry St,Dallas,TX,75201,2024-01-11 10:00:00,2024-01-11 10:00:00
+12,Julia,Thomas,julia.thomas@email.com,555-0112,963 Poplar Dr,Houston,TX,77001,2024-01-12 10:00:00,2024-01-12 10:00:00
+13,Kevin,Moore,kevin.moore@email.com,555-0113,159 Willow Ln,Philadelphia,PA,19101,2024-01-13 10:00:00,2024-01-13 10:00:00
+14,Laura,Jackson,laura.jackson@email.com,555-0114,357 Dogwood Ct,Phoenix,AZ,85002,2024-01-14 10:00:00,2024-01-14 10:00:00
+15,Michael,White,michael.white@email.com,555-0115,468 Hickory Ave,San Diego,CA,92101,2024-01-15 10:00:00,2024-01-15 10:00:00
+16,Nancy,Harris,nancy.harris@email.com,555-0116,579 Redwood Blvd,San Jose,CA,95101,2024-01-16 10:00:00,2024-01-16 10:00:00
+17,Oscar,Martin,oscar.martin@email.com,555-0117,681 Sycamore Way,Columbus,OH,43085,2024-01-17 10:00:00,2024-01-17 10:00:00
+18,Patricia,Thompson,patricia.thompson@email.com,555-0118,792 Magnolia Dr,Indianapolis,IN,46201,2024-01-18 10:00:00,2024-01-18 10:00:00
+19,Quincy,Garcia,quincy.garcia@email.com,555-0119,813 Cypress Ct,Charlotte,NC,28201,2024-01-19 10:00:00,2024-01-19 10:00:00
+20,Rachel,Martinez,rachel.martinez@email.com,555-0120,924 Fir St,Detroit,MI,48201,2024-01-20 10:00:00,2024-01-20 10:00:00

@@ -1,0 +1,153 @@
+{
+  "_comment": "Salesforce OAuth 2.0 Configuration Template for Lakeflow Connect",
+  "_instructions": "Replace placeholder values with your actual Salesforce Connected App credentials. Never commit this file with actual credentials to version control.",
+  
+  "connection_name": "salesforce_production",
+  "connection_type": "salesforce",
+  
+  "authentication": {
+    "auth_type": "oauth2_password",
+    "grant_type": "password",
+    "token_endpoint": "https://login.salesforce.com/services/oauth2/token",
+    "_token_endpoint_comment": "Use https://test.salesforce.com/services/oauth2/token for sandbox environments",
+    
+    "credentials": {
+      "client_id": "<YOUR_CONSUMER_KEY>",
+      "client_secret": "<YOUR_CONSUMER_SECRET>",
+      "username": "<YOUR_SALESFORCE_USERNAME>",
+      "password": "<YOUR_PASSWORD><YOUR_SECURITY_TOKEN>",
+      "_password_comment": "Concatenate your password and security token without any separator"
+    }
+  },
+  
+  "connection_properties": {
+    "instance_url": "https://yourcompany.my.salesforce.com",
+    "_instance_url_comment": "Your Salesforce instance URL - do not include trailing slash",
+    
+    "api_version": "59.0",
+    "_api_version_comment": "Salesforce API version to use. v59.0 is Winter '24. Check latest at developer.salesforce.com",
+    
+    "login_url": "https://login.salesforce.com",
+    "_login_url_comment": "Use https://test.salesforce.com for sandbox environments"
+  },
+  
+  "advanced_settings": {
+    "timeout_seconds": 300,
+    "max_retries": 3,
+    "retry_backoff_ms": 1000,
+    "bulk_api_enabled": true,
+    "_bulk_api_comment": "Enable Bulk API for large data extractions (recommended for >2000 records)",
+    
+    "query_mode": "auto",
+    "_query_mode_comment": "Options: 'rest' (REST API), 'bulk' (Bulk API), 'auto' (automatic selection based on volume)",
+    
+    "compression_enabled": true,
+    "batch_size": 2000,
+    "_batch_size_comment": "Number of records per batch for Bulk API operations"
+  },
+  
+  "security": {
+    "ip_restrictions": {
+      "enabled": false,
+      "allowed_ip_ranges": [],
+      "_ip_restrictions_comment": "Configure IP restrictions in Salesforce Connected App settings"
+    },
+    
+    "session_settings": {
+      "refresh_token_policy": "refresh_token_valid_until_revoked",
+      "_refresh_token_comment": "Configure in Salesforce Connected App OAuth policies"
+    }
+  },
+  
+  "databricks_secrets": {
+    "_recommended_approach": "Store credentials in Databricks Secrets instead of this config file",
+    "secret_scope": "salesforce_credentials",
+    "keys": {
+      "client_id_key": "consumer_key",
+      "client_secret_key": "consumer_secret",
+      "username_key": "username",
+      "password_token_key": "password_token",
+      "instance_url_key": "instance_url"
+    },
+    
+    "_usage_example": {
+      "python": "dbutils.secrets.get(scope='salesforce_credentials', key='consumer_key')",
+      "sql": "SELECT secret('salesforce_credentials', 'consumer_key')"
+    }
+  },
+  
+  "ingestion_defaults": {
+    "checkpoint_location": "/Volumes/main/salesforce/checkpoints",
+    "target_catalog": "main",
+    "target_schema": "salesforce_raw",
+    "write_mode": "merge",
+    "watermark_column": "SystemModstamp",
+    "_watermark_comment": "SystemModstamp is recommended for incremental ingestion"
+  },
+  
+  "object_filters": {
+    "include_objects": [
+      "Account",
+      "Contact",
+      "Lead",
+      "Opportunity",
+      "Case",
+      "Campaign",
+      "Task",
+      "Event"
+    ],
+    
+    "exclude_deleted": true,
+    "_exclude_deleted_comment": "Filter out records where IsDeleted = true",
+    
+    "date_filter": {
+      "enabled": false,
+      "field": "CreatedDate",
+      "operator": ">=",
+      "value": "2023-01-01T00:00:00Z"
+    }
+  },
+  
+  "api_limits": {
+    "daily_api_limit_threshold_pct": 80,
+    "_daily_api_limit_comment": "Alert when API usage exceeds this percentage of daily limit",
+    
+    "concurrent_api_requests": 25,
+    "_concurrent_requests_comment": "Maximum number of concurrent API requests. Salesforce limits vary by edition.",
+    
+    "rate_limit_handling": "exponential_backoff",
+    "_rate_limit_options": "exponential_backoff, linear_backoff, fail"
+  },
+  
+  "monitoring": {
+    "enable_metrics": true,
+    "log_level": "INFO",
+    "_log_level_options": "DEBUG, INFO, WARN, ERROR",
+    
+    "track_api_usage": true,
+    "alert_on_errors": true,
+    
+    "metrics_to_track": [
+      "records_ingested",
+      "api_calls_made",
+      "ingestion_duration_seconds",
+      "errors_encountered",
+      "last_successful_timestamp"
+    ]
+  },
+  
+  "production_checklist": {
+    "_before_production": [
+      "✓ Store all credentials in Databricks Secrets",
+      "✓ Enable IP restrictions on Connected App",
+      "✓ Use dedicated service account with minimal permissions",
+      "✓ Test connection and validate data ingestion",
+      "✓ Set up monitoring and alerting",
+      "✓ Document object mappings and field selections",
+      "✓ Implement error handling and retry logic",
+      "✓ Schedule ingestion jobs during off-peak hours",
+      "✓ Test incremental refresh and checkpoint recovery",
+      "✓ Validate Unity Catalog access controls"
+    ]
+  }
+}

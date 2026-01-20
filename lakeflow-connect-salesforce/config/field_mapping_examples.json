@@ -1,0 +1,273 @@
+{
+  "_description": "Field mapping templates and SOQL query examples for common Salesforce ingestion scenarios",
+  "_usage": "Copy and customize these templates for your ingestion pipelines",
+  
+  "account_ingestion": {
+    "description": "Full Account object ingestion with all standard fields",
+    "object": "Account",
+    "use_case": "Complete account data for Customer 360 analytics",
+    
+    "field_list": [
+      "Id", "Name", "Type", "Industry", "AnnualRevenue", "NumberOfEmployees",
+      "Phone", "Fax", "Website",
+      "BillingStreet", "BillingCity", "BillingState", "BillingPostalCode", "BillingCountry",
+      "ShippingStreet", "ShippingCity", "ShippingState", "ShippingPostalCode", "ShippingCountry",
+      "ParentId", "OwnerId",
+      "CreatedDate", "CreatedById", "LastModifiedDate", "LastModifiedById",
+      "SystemModstamp", "IsDeleted"
+    ],
+    
+    "soql_query": "SELECT Id, Name, Type, Industry, AnnualRevenue, NumberOfEmployees, Phone, Fax, Website, BillingStreet, BillingCity, BillingState, BillingPostalCode, BillingCountry, ShippingStreet, ShippingCity, ShippingState, ShippingPostalCode, ShippingCountry, ParentId, OwnerId, CreatedDate, CreatedById, LastModifiedDate, LastModifiedById, SystemModstamp, IsDeleted FROM Account WHERE IsDeleted = false ORDER BY SystemModstamp ASC",
+    
+    "incremental_soql": "SELECT Id, Name, Type, Industry, AnnualRevenue, NumberOfEmployees, Phone, Fax, Website, BillingStreet, BillingCity, BillingState, BillingPostalCode, BillingCountry, ShippingStreet, ShippingCity, ShippingState, ShippingPostalCode, ShippingCountry, ParentId, OwnerId, CreatedDate, CreatedById, LastModifiedDate, LastModifiedById, SystemModstamp, IsDeleted FROM Account WHERE SystemModstamp > {last_checkpoint} AND IsDeleted = false ORDER BY SystemModstamp ASC",
+    
+    "target_table": "sf_accounts",
+    "primary_key": ["Id"],
+    "watermark_column": "SystemModstamp"
+  },
+  
+  "contact_ingestion": {
+    "description": "Contact ingestion with Account relationship",
+    "object": "Contact",
+    "use_case": "Contact data with parent Account name for reporting",
+    
+    "field_list": [
+      "Id", "FirstName", "LastName", "Email", "Phone", "MobilePhone",
+      "Title", "Department", "AccountId", "Account.Name",
+      "MailingStreet", "MailingCity", "MailingState", "MailingPostalCode", "MailingCountry",
+      "OwnerId", "CreatedDate", "LastModifiedDate", "SystemModstamp", "IsDeleted"
+    ],
+    
+    "soql_query": "SELECT Id, FirstName, LastName, Email, Phone, MobilePhone, Title, Department, AccountId, Account.Name, MailingStreet, MailingCity, MailingState, MailingPostalCode, MailingCountry, OwnerId, CreatedDate, LastModifiedDate, SystemModstamp, IsDeleted FROM Contact WHERE IsDeleted = false ORDER BY SystemModstamp ASC",
+    
+    "relationship_handling": {
+      "Account": {
+        "type": "parent",
+        "field": "AccountId",
+        "flatten_as": "Account_Name",
+        "note": "Nested Account.Name needs to be flattened in ETL"
+      }
+    },
+    
+    "target_table": "sf_contacts",
+    "primary_key": ["Id"],
+    "watermark_column": "SystemModstamp"
+  },
+  
+  "opportunity_ingestion": {
+    "description": "Opportunity pipeline with Account details",
+    "object": "Opportunity",
+    "use_case": "Sales pipeline analytics and forecasting",
+    
+    "field_list": [
+      "Id", "Name", "AccountId", "Account.Name", "Account.Industry",
+      "StageName", "Amount", "Probability", "CloseDate",
+      "Type", "LeadSource", "IsClosed", "IsWon", "ForecastCategory",
+      "OwnerId", "CreatedDate", "LastModifiedDate", "SystemModstamp", "IsDeleted"
+    ],
+    
+    "soql_query": "SELECT Id, Name, AccountId, Account.Name, Account.Industry, StageName, Amount, Probability, CloseDate, Type, LeadSource, IsClosed, IsWon, ForecastCategory, OwnerId, CreatedDate, LastModifiedDate, SystemModstamp, IsDeleted FROM Opportunity WHERE IsDeleted = false ORDER BY SystemModstamp ASC",
+    
+    "filters": {
+      "active_only": "WHERE IsClosed = false AND IsDeleted = false",
+      "won_only": "WHERE IsWon = true AND IsDeleted = false",
+      "recent": "WHERE CreatedDate >= LAST_N_DAYS:90 AND IsDeleted = false",
+      "high_value": "WHERE Amount >= 100000 AND IsDeleted = false"
+    },
+    
+    "target_table": "sf_opportunities",
+    "primary_key": ["Id"],
+    "watermark_column": "SystemModstamp"
+  },
+  
+  "lead_ingestion": {
+    "description": "Lead capture for marketing and sales",
+    "object": "Lead",
+    "use_case": "Lead scoring and conversion analytics",
+    
+    "field_list": [
+      "Id", "FirstName", "LastName", "Email", "Phone", "MobilePhone",
+      "Company", "Title", "Industry", "Status", "Rating", "LeadSource",
+      "IsConverted", "ConvertedDate", "ConvertedAccountId", "ConvertedContactId", "ConvertedOpportunityId",
+      "Street", "City", "State", "PostalCode", "Country",
+      "OwnerId", "CreatedDate", "LastModifiedDate", "SystemModstamp", "IsDeleted"
+    ],
+    
+    "soql_query": "SELECT Id, FirstName, LastName, Email, Phone, MobilePhone, Company, Title, Industry, Status, Rating, LeadSource, IsConverted, ConvertedDate, ConvertedAccountId, ConvertedContactId, ConvertedOpportunityId, Street, City, State, PostalCode, Country, OwnerId, CreatedDate, LastModifiedDate, SystemModstamp, IsDeleted FROM Lead WHERE IsDeleted = false ORDER BY SystemModstamp ASC",
+    
+    "filters": {
+      "unconverted": "WHERE IsConverted = false AND IsDeleted = false",
+      "converted": "WHERE IsConverted = true AND IsDeleted = false",
+      "hot_leads": "WHERE Rating = 'Hot' AND IsConverted = false AND IsDeleted = false"
+    },
+    
+    "target_table": "sf_leads",
+    "primary_key": ["Id"],
+    "watermark_column": "SystemModstamp"
+  },
+  
+  "case_ingestion": {
+    "description": "Customer support case tracking",
+    "object": "Case",
+    "use_case": "Support analytics and SLA monitoring",
+    
+    "field_list": [
+      "Id", "CaseNumber", "AccountId", "ContactId",
+      "Subject", "Status", "Priority", "Origin", "Type", "Reason",
+      "IsClosed", "ClosedDate",
+      "OwnerId", "CreatedDate", "LastModifiedDate", "SystemModstamp", "IsDeleted"
+    ],
+    
+    "soql_query": "SELECT Id, CaseNumber, AccountId, ContactId, Subject, Status, Priority, Origin, Type, Reason, IsClosed, ClosedDate, OwnerId, CreatedDate, LastModifiedDate, SystemModstamp, IsDeleted FROM Case WHERE IsDeleted = false ORDER BY SystemModstamp ASC",
+    
+    "filters": {
+      "open_cases": "WHERE IsClosed = false AND IsDeleted = false",
+      "high_priority": "WHERE Priority = 'High' AND IsClosed = false AND IsDeleted = false",
+      "escalated": "WHERE Status = 'Escalated' AND IsDeleted = false"
+    },
+    
+    "target_table": "sf_cases",
+    "primary_key": ["Id"],
+    "watermark_column": "SystemModstamp"
+  },
+  
+  "campaign_ingestion": {
+    "description": "Marketing campaign performance",
+    "object": "Campaign",
+    "use_case": "Marketing ROI and attribution analysis",
+    
+    "field_list": [
+      "Id", "Name", "Type", "Status", "StartDate", "EndDate",
+      "ExpectedRevenue", "BudgetedCost", "ActualCost",
+      "NumberSent", "NumberOfLeads", "NumberOfConvertedLeads",
+      "NumberOfContacts", "NumberOfResponses",
+      "NumberOfOpportunities", "NumberOfWonOpportunities",
+      "AmountAllOpportunities", "AmountWonOpportunities",
+      "OwnerId", "CreatedDate", "LastModifiedDate", "SystemModstamp", "IsDeleted"
+    ],
+    
+    "soql_query": "SELECT Id, Name, Type, Status, StartDate, EndDate, ExpectedRevenue, BudgetedCost, ActualCost, NumberSent, NumberOfLeads, NumberOfConvertedLeads, NumberOfContacts, NumberOfResponses, NumberOfOpportunities, NumberOfWonOpportunities, AmountAllOpportunities, AmountWonOpportunities, OwnerId, CreatedDate, LastModifiedDate, SystemModstamp, IsDeleted FROM Campaign WHERE IsDeleted = false ORDER BY SystemModstamp ASC",
+    
+    "target_table": "sf_campaigns",
+    "primary_key": ["Id"],
+    "watermark_column": "SystemModstamp"
+  },
+  
+  "custom_object_template": {
+    "description": "Template for ingesting custom objects",
+    "object": "CustomObject__c",
+    "use_case": "Replace CustomObject__c with your actual custom object API name",
+    
+    "field_list": [
+      "Id", "Name",
+      "Custom_Field_1__c",
+      "Custom_Field_2__c",
+      "Custom_Lookup__c",
+      "CreatedDate", "LastModifiedDate", "SystemModstamp", "IsDeleted"
+    ],
+    
+    "soql_query": "SELECT Id, Name, Custom_Field_1__c, Custom_Field_2__c, Custom_Lookup__c, CreatedDate, LastModifiedDate, SystemModstamp, IsDeleted FROM CustomObject__c WHERE IsDeleted = false ORDER BY SystemModstamp ASC",
+    
+    "note": "Custom objects and fields always end with __c. For custom relationships, use __r syntax (e.g., Custom_Lookup__r.Name)"
+  },
+  
+  "data_type_mappings": {
+    "description": "Salesforce to Databricks/Spark data type conversions",
+    "mappings": {
+      "Id": {"salesforce": "id", "spark": "STRING", "note": "18-character unique identifier"},
+      "String": {"salesforce": "string", "spark": "STRING", "note": "Text field"},
+      "TextArea": {"salesforce": "textarea", "spark": "STRING", "note": "Long text field"},
+      "Picklist": {"salesforce": "picklist", "spark": "STRING", "note": "Categorical value"},
+      "Boolean": {"salesforce": "boolean", "spark": "BOOLEAN", "note": "True/False"},
+      "Date": {"salesforce": "date", "spark": "DATE", "note": "Date only (no time)"},
+      "DateTime": {"salesforce": "datetime", "spark": "TIMESTAMP", "note": "Date and time (UTC)"},
+      "Currency": {"salesforce": "currency", "spark": "DECIMAL(18,2)", "note": "Monetary value"},
+      "Number": {"salesforce": "double", "spark": "DOUBLE", "note": "Decimal number"},
+      "Integer": {"salesforce": "integer", "spark": "INT or LONG", "note": "Whole number"},
+      "Percent": {"salesforce": "percent", "spark": "DOUBLE", "note": "Percentage (store as decimal)"},
+      "Phone": {"salesforce": "phone", "spark": "STRING", "note": "Phone number as text"},
+      "Email": {"salesforce": "email", "spark": "STRING", "note": "Email address"},
+      "URL": {"salesforce": "url", "spark": "STRING", "note": "Web address"},
+      "Reference": {"salesforce": "reference", "spark": "STRING", "note": "Foreign key (18-char Id)"}
+    }
+  },
+  
+  "best_practices": {
+    "field_selection": {
+      "always_include": [
+        "Id - Required for merge operations",
+        "SystemModstamp - Required for incremental refresh",
+        "IsDeleted - Filter out deleted records",
+        "CreatedDate - Track record creation",
+        "LastModifiedDate - Track last update"
+      ],
+      
+      "optional_but_useful": [
+        "CreatedById - Audit trail",
+        "LastModifiedById - Audit trail",
+        "OwnerId - Record owner for security/reporting"
+      ],
+      
+      "avoid_if_possible": [
+        "Large text fields if not needed (Description, Notes)",
+        "Binary fields (Attachments - use separate API)",
+        "Encrypted fields (may have access restrictions)"
+      ]
+    },
+    
+    "soql_optimization": {
+      "always": [
+        "Use selective WHERE clauses (IsDeleted = false)",
+        "Include ORDER BY SystemModstamp for consistent pagination",
+        "Limit field list to only required fields",
+        "Use Bulk API for large datasets (>2000 records)"
+      ],
+      
+      "avoid": [
+        "SELECT * (not supported in SOQL)",
+        "Queries without WHERE clause on large objects",
+        "Complex nested queries (performance impact)",
+        "Querying all records repeatedly (use incremental)"
+      ]
+    },
+    
+    "incremental_refresh": {
+      "watermark_column": "SystemModstamp",
+      "checkpoint_strategy": "Store max(SystemModstamp) after successful load",
+      "query_pattern": "WHERE SystemModstamp > {last_checkpoint} AND IsDeleted = false",
+      "ordering": "ORDER BY SystemModstamp ASC",
+      "merge_strategy": "MERGE INTO target USING source ON target.Id = source.Id"
+    }
+  },
+  
+  "common_scenarios": {
+    "full_customer_360": {
+      "description": "Complete customer view with all related objects",
+      "objects": ["Account", "Contact", "Opportunity", "Case", "Campaign"],
+      "join_keys": {
+        "Account_to_Contact": "Contact.AccountId = Account.Id",
+        "Account_to_Opportunity": "Opportunity.AccountId = Account.Id",
+        "Account_to_Case": "Case.AccountId = Account.Id",
+        "Contact_to_Case": "Case.ContactId = Contact.Id"
+      }
+    },
+    
+    "sales_pipeline_only": {
+      "description": "Focus on sales-related objects",
+      "objects": ["Account", "Opportunity", "Lead"],
+      "use_case": "Sales analytics and forecasting"
+    },
+    
+    "support_analytics": {
+      "description": "Customer support metrics",
+      "objects": ["Account", "Contact", "Case"],
+      "use_case": "Support SLA tracking and customer satisfaction"
+    },
+    
+    "marketing_attribution": {
+      "description": "Marketing campaign effectiveness",
+      "objects": ["Campaign", "Lead", "Opportunity"],
+      "use_case": "ROI analysis and lead source attribution"
+    }
+  }
+}

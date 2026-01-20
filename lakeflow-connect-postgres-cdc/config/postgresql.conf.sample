@@ -1,0 +1,295 @@
+# ============================================================================
+# PostgreSQL Configuration Sample for CDC with Lakeflow Connect
+# ============================================================================
+# This file contains sample PostgreSQL configuration settings for enabling
+# Change Data Capture using logical replication.
+#
+# Usage:
+# 1. For self-managed PostgreSQL: Edit postgresql.conf with these settings
+# 2. For AWS RDS/Azure: Use parameter groups (see aws_rds_parameters.txt)
+# 3. Restart PostgreSQL after making changes
+#
+# Location of postgresql.conf:
+# - Linux: /etc/postgresql/[version]/main/postgresql.conf
+# - macOS (Homebrew): /usr/local/var/postgresql@[version]/postgresql.conf
+# - Find location: psql -c "SHOW config_file;"
+# ============================================================================
+
+# ----------------------------------------------------------------------------
+# WRITE-AHEAD LOG (WAL) CONFIGURATION
+# ----------------------------------------------------------------------------
+
+# Enable logical replication (REQUIRED for CDC)
+# Options: minimal, replica, logical
+# Default: replica
+# Restart required: YES
+wal_level = logical
+
+# Maximum number of replication slots
+# Each CDC consumer (Lakeflow Connect gateway) needs one slot
+# Default: 10
+# Restart required: YES
+max_replication_slots = 10
+
+# Maximum number of WAL sender processes
+# Should be >= max_replication_slots
+# Default: 10
+# Restart required: YES
+max_wal_senders = 10
+
+# Keep extra WAL segments for replication lag tolerance
+# PostgreSQL 13+: Use wal_keep_size
+# PostgreSQL 12 and earlier: Use wal_keep_segments
+
+# PostgreSQL 13+
+# Amount of WAL to retain (in MB or GB)
+# Prevents slot invalidation during temporary outages
+# Default: 0 (no minimum)
+# Restart required: NO
+wal_keep_size = 2GB
+
+# PostgreSQL 12 and earlier
+# Number of 16MB WAL segments to retain
+# Default: 0
+# Restart required: NO
+# wal_keep_segments = 128  # 128 * 16MB = 2GB
+
+# Maximum size of WAL before triggering checkpoint
+# Larger values = less frequent checkpoints, more recovery time
+# Default: 1GB
+# Restart required: NO
+max_wal_size = 2GB
+
+# Target time between automatic checkpoints
+# Default: 5min
+# Restart required: NO
+checkpoint_timeout = 15min
+
+# Spread checkpoint writes over this fraction of checkpoint interval
+# Default: 0.5
+# Restart required: NO
+checkpoint_completion_target = 0.9
+
+# Enable WAL compression to reduce disk usage
+# Default: off
+# Restart required: NO
+wal_compression = on
+
+# ----------------------------------------------------------------------------
+# CONNECTION SETTINGS
+# ----------------------------------------------------------------------------
+
+# Maximum number of concurrent connections
+# Default: 100
+# Restart required: YES
+max_connections = 200
+
+# Allow connections from specific hosts (edit pg_hba.conf separately)
+# listen_addresses = '*'  # Listen on all interfaces
+# port = 5432
+
+# ----------------------------------------------------------------------------
+# RESOURCE USAGE (MEMORY)
+# ----------------------------------------------------------------------------
+
+# Shared memory buffers
+# Recommendation: 25% of RAM for dedicated database server
+# Default: 128MB
+# Restart required: YES
+shared_buffers = 2GB
+
+# Memory for complex operations (sorting, hashing)
+# Per-operation limit
+# Default: 4MB
+# Restart required: NO
+work_mem = 16MB
+
+# Memory for maintenance operations (VACUUM, CREATE INDEX)
+# Default: 64MB
+# Restart required: NO
+maintenance_work_mem = 512MB
+
+# Maximum memory for logical decoding
+# Default: 64MB
+# Restart required: NO
+logical_decoding_work_mem = 128MB
+
+# ----------------------------------------------------------------------------
+# QUERY TUNING
+# ----------------------------------------------------------------------------
+
+# Effective cache size (used by query planner)
+# Should be ~50-75% of total RAM
+# Default: 4GB
+# Restart required: NO
+effective_cache_size = 6GB
+
+# Random page cost (SSD vs HDD tuning)
+# Default: 4.0 (HDD), 1.1 (SSD recommended)
+# Restart required: NO
+random_page_cost = 1.1
+
+# ----------------------------------------------------------------------------
+# LOGGING
+# ----------------------------------------------------------------------------
+
+# Log destination
+# Default: stderr
+# Restart required: NO
+logging_collector = on
+
+# Log directory (relative to data directory)
+# Default: log
+# Restart required: NO
+log_directory = 'log'
+
+# Log filename pattern
+# Default: postgresql-%Y-%m-%d_%H%M%S.log
+# Restart required: NO
+log_filename = 'postgresql-%Y-%m-%d.log'
+
+# Log rotation
+# Default: 1d
+# Restart required: NO
+log_rotation_age = 1d
+log_rotation_size = 100MB
+
+# What to log
+# Default: off (for most)
+# Restart required: NO
+log_connections = on
+log_disconnections = on
+log_duration = off
+log_line_prefix = '%t [%p]: [%l-1] user=%u,db=%d,app=%a,client=%h '
+
+# Log slow queries (in milliseconds)
+# Default: -1 (disabled)
+# Restart required: NO
+log_min_duration_statement = 1000  # Log queries > 1 second
+
+# Log checkpoints
+# Default: off
+# Restart required: NO
+log_checkpoints = on
+
+# Log replication commands
+# Default: off
+# Restart required: NO
+log_replication_commands = on
+
+# ----------------------------------------------------------------------------
+# REPLICATION (Additional Settings)
+# ----------------------------------------------------------------------------
+
+# Timeout for WAL senders (0 = no timeout)
+# Default: 60s
+# Restart required: NO
+wal_sender_timeout = 60s
+
+# Synchronous replication standby names (optional, for HA)
+# Default: empty
+# Restart required: NO
+# synchronous_standby_names = ''
+
+# ----------------------------------------------------------------------------
+# AUTOVACUUM (Important for table maintenance)
+# ----------------------------------------------------------------------------
+
+# Enable autovacuum daemon
+# Default: on
+# Restart required: NO
+autovacuum = on
+
+# Number of autovacuum workers
+# Default: 3
+# Restart required: YES
+autovacuum_max_workers = 4
+
+# Naptime between autovacuum runs
+# Default: 1min
+# Restart required: NO
+autovacuum_naptime = 30s
+
+# Vacuum threshold (base + scale_factor * tuples)
+# Defaults: 50 + 0.2 * tuples
+# Restart required: NO
+autovacuum_vacuum_threshold = 50
+autovacuum_vacuum_scale_factor = 0.1
+
+# ----------------------------------------------------------------------------
+# MONITORING
+# ----------------------------------------------------------------------------
+
+# Track activity for pg_stat views
+# Default: on
+# Restart required: NO
+track_activities = on
+track_counts = on
+track_io_timing = on
+track_functions = all
+
+# Statistics target (higher = better estimates, more ANALYZE time)
+# Default: 100
+# Restart required: NO
+default_statistics_target = 100
+
+# ============================================================================
+# NOTES AND RECOMMENDATIONS
+# ============================================================================
+
+# 1. RESTART REQUIRED SETTINGS
+#    These settings require PostgreSQL restart to take effect:
+#    - wal_level
+#    - max_replication_slots
+#    - max_wal_senders
+#    - max_connections
+#    - shared_buffers
+#    - autovacuum_max_workers
+
+# 2. RELOAD ONLY SETTINGS
+#    These settings take effect with reload (no restart):
+#    - wal_keep_size / wal_keep_segments
+#    - max_wal_size
+#    - checkpoint_timeout
+#    - log_* settings
+#    - autovacuum settings (except max_workers)
+#
+#    Reload command: SELECT pg_reload_conf();
+
+# 3. PERFORMANCE TUNING
+#    - For SSD storage: Set random_page_cost = 1.1
+#    - For high-write workload: Increase wal_buffers and checkpoint_segments
+#    - For large tables: Increase maintenance_work_mem for faster VACUUM
+
+# 4. MONITORING CDC HEALTH
+#    - Check replication slot lag: pg_replication_slots view
+#    - Monitor WAL size: pg_ls_waldir() function
+#    - Watch for slot invalidation: active = false in pg_replication_slots
+
+# 5. DISASTER RECOVERY
+#    - Ensure wal_keep_size is large enough for longest expected outage
+#    - Monitor disk space in pg_wal directory
+#    - Set up alerts for replication lag > 1GB
+
+# ============================================================================
+# APPLYING CONFIGURATION CHANGES
+# ============================================================================
+
+# For self-managed PostgreSQL:
+# 1. Edit /etc/postgresql/[version]/main/postgresql.conf
+# 2. Restart PostgreSQL:
+#    sudo systemctl restart postgresql
+# 3. Verify settings:
+#    psql -c "SHOW wal_level;"
+#    psql -c "SHOW max_replication_slots;"
+
+# For AWS RDS PostgreSQL:
+# See aws_rds_parameters.txt
+
+# For Azure Database for PostgreSQL:
+# See Azure portal → Server parameters
+# Set: azure.replication_support = LOGICAL
+
+# ============================================================================
+# END OF CONFIGURATION
+# ============================================================================

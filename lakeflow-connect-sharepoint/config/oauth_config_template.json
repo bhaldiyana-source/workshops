@@ -1,0 +1,104 @@
+{
+  "_comment": "SharePoint OAuth 2.0 Configuration Template",
+  "_instructions": [
+    "1. Copy this template and create your own configuration file",
+    "2. Replace all placeholder values with your actual Azure AD credentials",
+    "3. DO NOT commit files with actual credentials to version control",
+    "4. Use Databricks Secrets to store sensitive values in production"
+  ],
+  
+  "azure_ad": {
+    "tenant_id": "YOUR_TENANT_ID_HERE",
+    "_tenant_id_help": "Found in Azure AD > Overview. Example: 12345678-1234-1234-1234-123456789012",
+    
+    "client_id": "YOUR_CLIENT_ID_HERE",
+    "_client_id_help": "Application (client) ID from your Azure AD app registration",
+    
+    "client_secret": "YOUR_CLIENT_SECRET_HERE",
+    "_client_secret_help": "Client secret value (not the secret ID). Copy immediately after creation.",
+    
+    "authority": "https://login.microsoftonline.com/YOUR_TENANT_ID_HERE",
+    "_authority_help": "OAuth authority URL. Replace YOUR_TENANT_ID_HERE with actual tenant ID"
+  },
+  
+  "sharepoint": {
+    "site_url": "https://yourtenant.sharepoint.com/sites/yoursite",
+    "_site_url_help": "Full URL to your SharePoint site",
+    
+    "site_name": "yoursite",
+    "_site_name_help": "Site name for reference only",
+    
+    "tenant_name": "yourtenant",
+    "_tenant_name_help": "Your SharePoint tenant name (subdomain)"
+  },
+  
+  "api_permissions": {
+    "required_permissions": [
+      {
+        "api": "Microsoft Graph",
+        "permission": "Sites.Read.All",
+        "type": "Application",
+        "description": "Read items in all site collections"
+      },
+      {
+        "api": "Microsoft Graph",
+        "permission": "Files.Read.All",
+        "type": "Application",
+        "description": "Read files in all site collections"
+      },
+      {
+        "api": "Microsoft Graph",
+        "permission": "User.Read.All",
+        "type": "Application",
+        "description": "Read all users' profiles (optional)",
+        "optional": true
+      }
+    ],
+    "_permissions_help": "Ensure admin consent is granted for all required permissions"
+  },
+  
+  "databricks": {
+    "secret_scope": "sharepoint-connector",
+    "_secret_scope_help": "Databricks secret scope name for storing credentials",
+    
+    "secrets": {
+      "tenant_id_key": "tenant-id",
+      "client_id_key": "client-id",
+      "client_secret_key": "client-secret",
+      "site_url_key": "site-url"
+    },
+    "_secrets_help": "Secret keys to use when storing in Databricks Secrets",
+    
+    "catalog": "sharepoint_data",
+    "schema": "raw",
+    "_catalog_schema_help": "Unity Catalog location for SharePoint data"
+  },
+  
+  "connection": {
+    "connection_name": "sharepoint_connection",
+    "connection_type": "MICROSOFT_SHAREPOINT",
+    "_connection_help": "Lakeflow Connect connection configuration"
+  },
+  
+  "ingestion": {
+    "batch_size": 100,
+    "_batch_size_help": "Number of items to fetch per API request",
+    
+    "incremental_refresh_interval": "daily",
+    "_refresh_interval_help": "How often to sync: hourly, daily, weekly",
+    
+    "max_retries": 3,
+    "_max_retries_help": "Number of retry attempts for failed requests",
+    
+    "timeout_seconds": 300,
+    "_timeout_help": "Request timeout in seconds"
+  },
+  
+  "features": {
+    "ingest_document_libraries": true,
+    "ingest_lists": true,
+    "ingest_metadata": true,
+    "track_versions": false,
+    "_features_help": "Enable/disable specific ingestion features"
+  }
+}

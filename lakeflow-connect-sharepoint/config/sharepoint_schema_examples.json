@@ -1,0 +1,399 @@
+{
+  "_comment": "SharePoint Schema Examples",
+  "_description": "Sample schemas for SharePoint document libraries and lists to help understand data structures",
+  
+  "document_library_schema": {
+    "name": "Documents Library",
+    "description": "Standard SharePoint document library schema",
+    "entity_type": "drive",
+    "fields": [
+      {
+        "name": "id",
+        "type": "string",
+        "description": "Unique identifier for the document",
+        "example": "01ABC2DEF3GHI4JKL5MNO6PQR7S8"
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "description": "Document filename",
+        "example": "Quarterly_Report_Q1_2024.docx"
+      },
+      {
+        "name": "size",
+        "type": "integer",
+        "description": "File size in bytes",
+        "example": 1048576
+      },
+      {
+        "name": "createdDateTime",
+        "type": "datetime",
+        "description": "When the document was created",
+        "example": "2024-01-15T10:30:00Z"
+      },
+      {
+        "name": "lastModifiedDateTime",
+        "type": "datetime",
+        "description": "When the document was last modified",
+        "example": "2024-03-22T14:45:30Z"
+      },
+      {
+        "name": "webUrl",
+        "type": "string",
+        "description": "SharePoint URL to access the document",
+        "example": "https://contoso.sharepoint.com/sites/ProjectAlpha/Shared%20Documents/Report.docx"
+      },
+      {
+        "name": "createdBy",
+        "type": "object",
+        "description": "User who created the document",
+        "schema": {
+          "user": {
+            "displayName": "string",
+            "email": "string",
+            "id": "string"
+          }
+        },
+        "example": {
+          "user": {
+            "displayName": "John Smith",
+            "email": "john.smith@contoso.com",
+            "id": "user-guid-123"
+          }
+        }
+      },
+      {
+        "name": "lastModifiedBy",
+        "type": "object",
+        "description": "User who last modified the document",
+        "schema": {
+          "user": {
+            "displayName": "string",
+            "email": "string"
+          }
+        }
+      },
+      {
+        "name": "file",
+        "type": "object",
+        "description": "File-specific metadata",
+        "schema": {
+          "mimeType": "string",
+          "hashes": "object"
+        },
+        "example": {
+          "mimeType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+        }
+      },
+      {
+        "name": "parentReference",
+        "type": "object",
+        "description": "Parent folder information",
+        "schema": {
+          "driveId": "string",
+          "path": "string"
+        }
+      }
+    ]
+  },
+  
+  "sharepoint_list_schema": {
+    "name": "Custom SharePoint List",
+    "description": "Example SharePoint list with custom columns",
+    "entity_type": "list",
+    "list_template": "GenericList",
+    "fields": [
+      {
+        "name": "id",
+        "type": "string",
+        "description": "List item ID",
+        "example": "1"
+      },
+      {
+        "name": "Title",
+        "type": "text",
+        "required": true,
+        "description": "Item title (default column)",
+        "example": "Project Alpha Initiative"
+      },
+      {
+        "name": "Status",
+        "type": "choice",
+        "description": "Custom choice column",
+        "choices": ["Not Started", "In Progress", "Completed", "On Hold"],
+        "example": "In Progress"
+      },
+      {
+        "name": "Priority",
+        "type": "choice",
+        "description": "Priority level",
+        "choices": ["Low", "Medium", "High", "Critical"],
+        "example": "High"
+      },
+      {
+        "name": "DueDate",
+        "type": "dateTime",
+        "description": "Due date for the item",
+        "example": "2024-06-30T00:00:00Z"
+      },
+      {
+        "name": "AssignedTo",
+        "type": "person",
+        "description": "Person or group column",
+        "example": {
+          "displayName": "Jane Doe",
+          "email": "jane.doe@contoso.com"
+        }
+      },
+      {
+        "name": "Budget",
+        "type": "number",
+        "description": "Budget amount",
+        "example": 50000.00
+      },
+      {
+        "name": "Department",
+        "type": "text",
+        "description": "Department name",
+        "example": "Engineering"
+      },
+      {
+        "name": "Description",
+        "type": "note",
+        "description": "Multi-line text field",
+        "example": "This project aims to improve customer satisfaction by 20%"
+      },
+      {
+        "name": "Attachments",
+        "type": "boolean",
+        "description": "Whether item has attachments",
+        "example": true
+      },
+      {
+        "name": "Created",
+        "type": "dateTime",
+        "description": "When the item was created",
+        "example": "2024-01-10T09:00:00Z"
+      },
+      {
+        "name": "Modified",
+        "type": "dateTime",
+        "description": "When the item was last modified",
+        "example": "2024-03-15T16:30:00Z"
+      }
+    ]
+  },
+  
+  "metadata_columns": {
+    "name": "Common Metadata Columns",
+    "description": "Standard metadata columns in SharePoint",
+    "columns": [
+      {
+        "internal_name": "FileLeafRef",
+        "display_name": "Name",
+        "type": "text",
+        "description": "File or folder name"
+      },
+      {
+        "internal_name": "Modified",
+        "display_name": "Modified",
+        "type": "dateTime",
+        "description": "Last modified date"
+      },
+      {
+        "internal_name": "Editor",
+        "display_name": "Modified By",
+        "type": "person",
+        "description": "User who last modified"
+      },
+      {
+        "internal_name": "Created",
+        "display_name": "Created",
+        "type": "dateTime",
+        "description": "Creation date"
+      },
+      {
+        "internal_name": "Author",
+        "display_name": "Created By",
+        "type": "person",
+        "description": "User who created"
+      },
+      {
+        "internal_name": "File_x0020_Size",
+        "display_name": "File Size",
+        "type": "number",
+        "description": "File size in bytes"
+      },
+      {
+        "internal_name": "ContentType",
+        "display_name": "Content Type",
+        "type": "text",
+        "description": "SharePoint content type"
+      },
+      {
+        "internal_name": "_CheckinComment",
+        "display_name": "Check In Comment",
+        "type": "note",
+        "description": "Version check-in comment"
+      }
+    ]
+  },
+  
+  "content_types": {
+    "document": {
+      "name": "Document",
+      "description": "Standard document content type",
+      "parent": "Item",
+      "fields": ["Title", "Name", "Modified", "Created"]
+    },
+    "folder": {
+      "name": "Folder",
+      "description": "Folder content type",
+      "parent": "Container",
+      "fields": ["Name", "Item Count"]
+    },
+    "link": {
+      "name": "Link to a Document",
+      "description": "Link content type",
+      "parent": "Item",
+      "fields": ["URL", "Title"]
+    }
+  },
+  
+  "delta_table_schema": {
+    "name": "Recommended Delta Lake Schema",
+    "description": "Flattened schema for storing SharePoint documents in Delta Lake",
+    "table_name": "sharepoint_documents",
+    "columns": [
+      {
+        "name": "id",
+        "type": "STRING",
+        "nullable": false,
+        "description": "Primary key - SharePoint document ID"
+      },
+      {
+        "name": "name",
+        "type": "STRING",
+        "nullable": false,
+        "description": "Document filename"
+      },
+      {
+        "name": "size",
+        "type": "BIGINT",
+        "nullable": true,
+        "description": "File size in bytes"
+      },
+      {
+        "name": "created_datetime",
+        "type": "TIMESTAMP",
+        "nullable": true,
+        "description": "Creation timestamp"
+      },
+      {
+        "name": "modified_datetime",
+        "type": "TIMESTAMP",
+        "nullable": true,
+        "description": "Last modification timestamp"
+      },
+      {
+        "name": "created_by",
+        "type": "STRING",
+        "nullable": true,
+        "description": "Display name of creator"
+      },
+      {
+        "name": "modified_by",
+        "type": "STRING",
+        "nullable": true,
+        "description": "Display name of last modifier"
+      },
+      {
+        "name": "web_url",
+        "type": "STRING",
+        "nullable": true,
+        "description": "SharePoint URL to access document"
+      },
+      {
+        "name": "mime_type",
+        "type": "STRING",
+        "nullable": true,
+        "description": "MIME type of the file"
+      },
+      {
+        "name": "is_folder",
+        "type": "BOOLEAN",
+        "nullable": false,
+        "description": "Whether this is a folder"
+      },
+      {
+        "name": "parent_path",
+        "type": "STRING",
+        "nullable": true,
+        "description": "Parent folder path"
+      },
+      {
+        "name": "site_id",
+        "type": "STRING",
+        "nullable": false,
+        "description": "SharePoint site ID"
+      },
+      {
+        "name": "library_id",
+        "type": "STRING",
+        "nullable": false,
+        "description": "Document library (drive) ID"
+      },
+      {
+        "name": "library_name",
+        "type": "STRING",
+        "nullable": true,
+        "description": "Document library name"
+      },
+      {
+        "name": "ingestion_timestamp",
+        "type": "TIMESTAMP",
+        "nullable": false,
+        "description": "When this record was ingested into Databricks"
+      }
+    ],
+    "partition_by": ["library_name"],
+    "cluster_by": ["modified_datetime"]
+  },
+  
+  "api_endpoints": {
+    "description": "Common Microsoft Graph API endpoints for SharePoint",
+    "endpoints": [
+      {
+        "name": "Get Site",
+        "url": "https://graph.microsoft.com/v1.0/sites/{hostname}:{site-path}",
+        "method": "GET",
+        "example": "https://graph.microsoft.com/v1.0/sites/contoso.sharepoint.com:/sites/ProjectAlpha"
+      },
+      {
+        "name": "List Drives",
+        "url": "https://graph.microsoft.com/v1.0/sites/{site-id}/drives",
+        "method": "GET"
+      },
+      {
+        "name": "List Drive Items",
+        "url": "https://graph.microsoft.com/v1.0/sites/{site-id}/drives/{drive-id}/root/children",
+        "method": "GET"
+      },
+      {
+        "name": "Get Delta Changes",
+        "url": "https://graph.microsoft.com/v1.0/sites/{site-id}/drives/{drive-id}/root/delta",
+        "method": "GET"
+      },
+      {
+        "name": "List SharePoint Lists",
+        "url": "https://graph.microsoft.com/v1.0/sites/{site-id}/lists",
+        "method": "GET"
+      },
+      {
+        "name": "List Items",
+        "url": "https://graph.microsoft.com/v1.0/sites/{site-id}/lists/{list-id}/items",
+        "method": "GET"
+      }
+    ]
+  }
+}

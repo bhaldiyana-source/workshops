@@ -1,0 +1,433 @@
+{
+  "_description": "Example custom object definitions for Salesforce",
+  "_note": "Custom objects end with __c suffix. Replace these examples with your organization's actual custom objects.",
+  
+  "custom_product": {
+    "api_name": "CustomProduct__c",
+    "label": "Custom Product",
+    "description": "Extended product catalog with custom attributes",
+    "plural_label": "Custom Products",
+    
+    "fields": [
+      {
+        "api_name": "Id",
+        "label": "Record ID",
+        "type": "id",
+        "required": true
+      },
+      {
+        "api_name": "Name",
+        "label": "Product Name",
+        "type": "string",
+        "length": 80,
+        "required": true
+      },
+      {
+        "api_name": "Product_SKU__c",
+        "label": "Product SKU",
+        "type": "string",
+        "length": 50,
+        "required": true,
+        "unique": true
+      },
+      {
+        "api_name": "Product_Category__c",
+        "label": "Product Category",
+        "type": "picklist",
+        "values": ["Software", "Hardware", "Services", "Consulting", "Training"],
+        "required": true
+      },
+      {
+        "api_name": "Unit_Price__c",
+        "label": "Unit Price",
+        "type": "currency",
+        "decimals": 2,
+        "required": true
+      },
+      {
+        "api_name": "Cost__c",
+        "label": "Cost",
+        "type": "currency",
+        "decimals": 2,
+        "required": false
+      },
+      {
+        "api_name": "Inventory_Quantity__c",
+        "label": "Inventory Quantity",
+        "type": "integer",
+        "required": false,
+        "default_value": 0
+      },
+      {
+        "api_name": "Is_Active__c",
+        "label": "Is Active",
+        "type": "boolean",
+        "required": true,
+        "default_value": true
+      },
+      {
+        "api_name": "Vendor__c",
+        "label": "Vendor",
+        "type": "reference",
+        "references": "Account",
+        "relationship_name": "Vendor__r",
+        "required": false
+      },
+      {
+        "api_name": "Launch_Date__c",
+        "label": "Launch Date",
+        "type": "date",
+        "required": false
+      },
+      {
+        "api_name": "Description__c",
+        "label": "Description",
+        "type": "textarea",
+        "length": 32000,
+        "required": false
+      },
+      {
+        "api_name": "Product_URL__c",
+        "label": "Product URL",
+        "type": "url",
+        "required": false
+      }
+    ],
+    
+    "sample_soql": "SELECT Id, Name, Product_SKU__c, Product_Category__c, Unit_Price__c, Cost__c, Inventory_Quantity__c, Is_Active__c, Vendor__c, Vendor__r.Name, Launch_Date__c, Description__c, Product_URL__c, CreatedDate, LastModifiedDate, SystemModstamp FROM CustomProduct__c WHERE IsDeleted = false ORDER BY SystemModstamp ASC",
+    
+    "sample_records": [
+      {
+        "Name": "Enterprise Cloud Suite",
+        "Product_SKU__c": "ECS-2024-001",
+        "Product_Category__c": "Software",
+        "Unit_Price__c": 50000,
+        "Cost__c": 15000,
+        "Inventory_Quantity__c": 999,
+        "Is_Active__c": true,
+        "Launch_Date__c": "2024-01-15"
+      },
+      {
+        "Name": "Professional Services - Implementation",
+        "Product_SKU__c": "SVC-IMP-001",
+        "Product_Category__c": "Services",
+        "Unit_Price__c": 25000,
+        "Cost__c": 10000,
+        "Is_Active__c": true,
+        "Launch_Date__c": "2023-06-01"
+      }
+    ]
+  },
+  
+  "support_ticket": {
+    "api_name": "SupportTicket__c",
+    "label": "Support Ticket",
+    "description": "Extended support ticket tracking beyond standard Case object",
+    "plural_label": "Support Tickets",
+    
+    "fields": [
+      {
+        "api_name": "Id",
+        "label": "Record ID",
+        "type": "id",
+        "required": true
+      },
+      {
+        "api_name": "Name",
+        "label": "Ticket Number",
+        "type": "autonumber",
+        "format": "ST-{0000}",
+        "required": true
+      },
+      {
+        "api_name": "Related_Case__c",
+        "label": "Related Case",
+        "type": "reference",
+        "references": "Case",
+        "relationship_name": "Related_Case__r",
+        "required": true
+      },
+      {
+        "api_name": "Severity_Level__c",
+        "label": "Severity Level",
+        "type": "picklist",
+        "values": ["Critical", "High", "Medium", "Low"],
+        "required": true,
+        "default_value": "Medium"
+      },
+      {
+        "api_name": "Resolution_Time_Hours__c",
+        "label": "Resolution Time (Hours)",
+        "type": "double",
+        "decimals": 2,
+        "required": false
+      },
+      {
+        "api_name": "Customer_Satisfaction__c",
+        "label": "Customer Satisfaction",
+        "type": "picklist",
+        "values": ["Very Satisfied", "Satisfied", "Neutral", "Dissatisfied", "Very Dissatisfied"],
+        "required": false
+      },
+      {
+        "api_name": "Root_Cause__c",
+        "label": "Root Cause",
+        "type": "picklist",
+        "values": ["Software Bug", "Configuration Error", "User Error", "Network Issue", "Hardware Failure", "Other"],
+        "required": false
+      },
+      {
+        "api_name": "Resolution_Notes__c",
+        "label": "Resolution Notes",
+        "type": "textarea",
+        "length": 32000,
+        "required": false
+      },
+      {
+        "api_name": "SLA_Met__c",
+        "label": "SLA Met",
+        "type": "boolean",
+        "required": false,
+        "default_value": true
+      },
+      {
+        "api_name": "Escalated__c",
+        "label": "Escalated",
+        "type": "boolean",
+        "required": false,
+        "default_value": false
+      }
+    ],
+    
+    "sample_soql": "SELECT Id, Name, Related_Case__c, Related_Case__r.CaseNumber, Severity_Level__c, Resolution_Time_Hours__c, Customer_Satisfaction__c, Root_Cause__c, Resolution_Notes__c, SLA_Met__c, Escalated__c, CreatedDate, LastModifiedDate, SystemModstamp FROM SupportTicket__c WHERE IsDeleted = false ORDER BY SystemModstamp ASC"
+  },
+  
+  "subscription": {
+    "api_name": "Subscription__c",
+    "label": "Subscription",
+    "description": "Customer subscription tracking for recurring revenue",
+    "plural_label": "Subscriptions",
+    
+    "fields": [
+      {
+        "api_name": "Id",
+        "label": "Record ID",
+        "type": "id",
+        "required": true
+      },
+      {
+        "api_name": "Name",
+        "label": "Subscription Name",
+        "type": "string",
+        "length": 80,
+        "required": true
+      },
+      {
+        "api_name": "Account__c",
+        "label": "Account",
+        "type": "reference",
+        "references": "Account",
+        "relationship_name": "Account__r",
+        "required": true,
+        "master_detail": true
+      },
+      {
+        "api_name": "Subscription_Type__c",
+        "label": "Subscription Type",
+        "type": "picklist",
+        "values": ["Monthly", "Quarterly", "Annual", "Multi-Year"],
+        "required": true
+      },
+      {
+        "api_name": "Monthly_Recurring_Revenue__c",
+        "label": "Monthly Recurring Revenue (MRR)",
+        "type": "currency",
+        "decimals": 2,
+        "required": true
+      },
+      {
+        "api_name": "Annual_Contract_Value__c",
+        "label": "Annual Contract Value (ACV)",
+        "type": "currency",
+        "decimals": 2,
+        "required": true
+      },
+      {
+        "api_name": "Start_Date__c",
+        "label": "Start Date",
+        "type": "date",
+        "required": true
+      },
+      {
+        "api_name": "End_Date__c",
+        "label": "End Date",
+        "type": "date",
+        "required": true
+      },
+      {
+        "api_name": "Renewal_Date__c",
+        "label": "Renewal Date",
+        "type": "date",
+        "required": true
+      },
+      {
+        "api_name": "Status__c",
+        "label": "Status",
+        "type": "picklist",
+        "values": ["Active", "Pending Renewal", "Cancelled", "Expired", "Suspended"],
+        "required": true,
+        "default_value": "Active"
+      },
+      {
+        "api_name": "Auto_Renew__c",
+        "label": "Auto Renew",
+        "type": "boolean",
+        "required": false,
+        "default_value": true
+      },
+      {
+        "api_name": "Cancellation_Reason__c",
+        "label": "Cancellation Reason",
+        "type": "picklist",
+        "values": ["Price", "Functionality", "Support Quality", "Competitor", "No Longer Needed", "Other"],
+        "required": false
+      }
+    ],
+    
+    "sample_soql": "SELECT Id, Name, Account__c, Account__r.Name, Subscription_Type__c, Monthly_Recurring_Revenue__c, Annual_Contract_Value__c, Start_Date__c, End_Date__c, Renewal_Date__c, Status__c, Auto_Renew__c, Cancellation_Reason__c, CreatedDate, LastModifiedDate, SystemModstamp FROM Subscription__c WHERE IsDeleted = false ORDER BY SystemModstamp ASC",
+    
+    "use_cases": [
+      "Calculate total MRR and ARR across all active subscriptions",
+      "Identify subscriptions approaching renewal date for proactive outreach",
+      "Analyze churn reasons from cancelled subscriptions",
+      "Forecast revenue based on renewal probability"
+    ]
+  },
+  
+  "project_milestone": {
+    "api_name": "ProjectMilestone__c",
+    "label": "Project Milestone",
+    "description": "Track project implementation milestones linked to opportunities",
+    "plural_label": "Project Milestones",
+    
+    "fields": [
+      {
+        "api_name": "Id",
+        "label": "Record ID",
+        "type": "id",
+        "required": true
+      },
+      {
+        "api_name": "Name",
+        "label": "Milestone Name",
+        "type": "string",
+        "length": 80,
+        "required": true
+      },
+      {
+        "api_name": "Opportunity__c",
+        "label": "Opportunity",
+        "type": "reference",
+        "references": "Opportunity",
+        "relationship_name": "Opportunity__r",
+        "required": true,
+        "master_detail": true
+      },
+      {
+        "api_name": "Milestone_Type__c",
+        "label": "Milestone Type",
+        "type": "picklist",
+        "values": ["Kickoff", "Design", "Development", "Testing", "Deployment", "Training", "Go-Live"],
+        "required": true
+      },
+      {
+        "api_name": "Planned_Date__c",
+        "label": "Planned Date",
+        "type": "date",
+        "required": true
+      },
+      {
+        "api_name": "Actual_Date__c",
+        "label": "Actual Date",
+        "type": "date",
+        "required": false
+      },
+      {
+        "api_name": "Status__c",
+        "label": "Status",
+        "type": "picklist",
+        "values": ["Not Started", "In Progress", "Completed", "Delayed", "At Risk", "Blocked"],
+        "required": true,
+        "default_value": "Not Started"
+      },
+      {
+        "api_name": "Completion_Percentage__c",
+        "label": "Completion %",
+        "type": "percent",
+        "decimals": 0,
+        "required": false,
+        "default_value": 0
+      },
+      {
+        "api_name": "Owner_Email__c",
+        "label": "Owner Email",
+        "type": "email",
+        "required": false
+      },
+      {
+        "api_name": "Notes__c",
+        "label": "Notes",
+        "type": "textarea",
+        "length": 5000,
+        "required": false
+      }
+    ],
+    
+    "sample_soql": "SELECT Id, Name, Opportunity__c, Opportunity__r.Name, Milestone_Type__c, Planned_Date__c, Actual_Date__c, Status__c, Completion_Percentage__c, Owner_Email__c, Notes__c, CreatedDate, LastModifiedDate, SystemModstamp FROM ProjectMilestone__c WHERE IsDeleted = false ORDER BY SystemModstamp ASC"
+  },
+  
+  "best_practices": {
+    "naming_conventions": {
+      "objects": "Custom objects must end with __c (e.g., CustomProduct__c)",
+      "fields": "Custom fields must end with __c (e.g., Product_SKU__c)",
+      "relationships": "Parent relationships use __r suffix (e.g., Vendor__r.Name)"
+    },
+    
+    "data_modeling": {
+      "use_master_detail": "When child record should be deleted with parent (e.g., Subscription linked to Account)",
+      "use_lookup": "For optional or independent relationships (e.g., Product linked to Vendor)",
+      "external_ids": "Mark fields as external IDs for upsert operations (e.g., Product_SKU__c)",
+      "indexes": "Salesforce automatically indexes custom external ID fields and unique fields"
+    },
+    
+    "ingestion_tips": {
+      "describe_api": "Use Salesforce Describe API to get latest custom object schemas",
+      "field_permissions": "Ensure integration user has read access to all custom fields",
+      "relationship_queries": "Use __r notation to traverse parent relationships in SOQL",
+      "bulk_api": "Use Bulk API for custom objects with >10K records",
+      "incremental": "Always use SystemModstamp for incremental refresh"
+    }
+  },
+  
+  "soql_examples": {
+    "simple_custom_object": {
+      "description": "Query custom object with all fields",
+      "soql": "SELECT Id, Name, Custom_Field_1__c, Custom_Field_2__c, CreatedDate, LastModifiedDate, SystemModstamp FROM CustomObject__c WHERE IsDeleted = false"
+    },
+    
+    "with_parent_relationship": {
+      "description": "Query custom object with parent Account details",
+      "soql": "SELECT Id, Name, Account__c, Account__r.Name, Account__r.Industry, Custom_Field__c FROM CustomObject__c WHERE IsDeleted = false"
+    },
+    
+    "with_child_relationship": {
+      "description": "Query from parent with child custom objects (use subquery)",
+      "soql": "SELECT Id, Name, (SELECT Id, Name, Custom_Field__c FROM CustomChildren__r) FROM Account WHERE Id = '001xxxxxxxxxxxxxxx'"
+    },
+    
+    "incremental_load": {
+      "description": "Incremental query using SystemModstamp watermark",
+      "soql": "SELECT Id, Name, Custom_Field__c, SystemModstamp FROM CustomObject__c WHERE SystemModstamp > {last_checkpoint} AND IsDeleted = false ORDER BY SystemModstamp ASC"
+    }
+  }
+}

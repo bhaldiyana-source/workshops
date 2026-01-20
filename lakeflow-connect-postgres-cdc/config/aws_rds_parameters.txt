@@ -1,0 +1,371 @@
+# ============================================================================
+# AWS RDS PostgreSQL Parameter Group Settings for CDC
+# ============================================================================
+# This file contains AWS RDS parameter group settings required for enabling
+# Change Data Capture with Databricks Lakeflow Connect.
+#
+# Important Notes:
+# - RDS manages postgresql.conf, so you must use Parameter Groups
+# - Some parameters require instance reboot
+# - Parameter group must match your PostgreSQL version
+# ============================================================================
+
+# ============================================================================
+# STEP 1: Create Custom Parameter Group
+# ============================================================================
+
+# Via AWS Console:
+# 1. Go to RDS → Parameter groups
+# 2. Click "Create parameter group"
+# 3. Settings:
+#    - Parameter group family: postgres14 (match your RDS version)
+#    - Type: DB Parameter Group
+#    - Group name: retail-cdc-pg14
+#    - Description: PostgreSQL 14 parameter group for CDC with Lakeflow Connect
+
+# Via AWS CLI:
+aws rds create-db-parameter-group \
+    --db-parameter-group-name retail-cdc-pg14 \
+    --db-parameter-group-family postgres14 \
+    --description "PostgreSQL 14 parameter group for CDC with Lakeflow Connect"
+
+# ============================================================================
+# STEP 2: Configure Required CDC Parameters
+# ============================================================================
+
+# Parameter: rds.logical_replication
+# Description: Master switch for enabling logical replication on RDS
+# Value: 1 (enabled)
+# Restart Required: YES
+# Importance: CRITICAL - Must be enabled for CDC
+rds.logical_replication = 1
+
+# Parameter: max_replication_slots
+# Description: Maximum number of replication slots
+# Value: 10 (adjust based on number of CDC pipelines)
+# Restart Required: YES
+# Importance: HIGH
+max_replication_slots = 10
+
+# Parameter: max_wal_senders
+# Description: Maximum number of WAL sender processes
+# Value: 10 (should be >= max_replication_slots)
+# Restart Required: YES
+# Importance: HIGH
+max_wal_senders = 10
+
+# Parameter: wal_sender_timeout
+# Description: Timeout for inactive WAL sender connections (in milliseconds)
+# Value: 60000 (60 seconds, 0 = no timeout)
+# Restart Required: NO
+# Importance: MEDIUM
+wal_sender_timeout = 60000
+
+# ============================================================================
+# STEP 3: Configure WAL Retention Parameters
+# ============================================================================
+
+# For PostgreSQL 13+:
+
+# Parameter: wal_keep_size
+# Description: Minimum size of WAL files to retain (in MB)
+# Value: 2048 (2 GB)
+# Restart Required: NO
+# Importance: HIGH - Prevents slot invalidation during outages
+wal_keep_size = 2048
+
+# For PostgreSQL 12 and earlier:
+
+# Parameter: wal_keep_segments
+# Description: Number of 16MB WAL segments to retain
+# Value: 128 (128 * 16MB = 2GB)
+# Restart Required: NO
+# Importance: HIGH
+# wal_keep_segments = 128
+
+# ============================================================================
+# STEP 4: Performance and Memory Parameters
+# ============================================================================
+
+# Parameter: shared_buffers
+# Description: Amount of memory for caching data (in 8KB pages)
+# Value: {DBInstanceClassMemory/10240} (25% of RAM, RDS formula)
+# Restart Required: YES
+# Importance: HIGH
+# Note: RDS uses formula based on instance size
+# db.t3.medium (4GB): ~400MB
+# db.m5.large (8GB): ~800MB
+# db.m5.xlarge (16GB): ~1.6GB
+shared_buffers = {DBInstanceClassMemory/10240}
+
+# Parameter: work_mem
+# Description: Memory for sorting and hash operations (in KB)
+# Value: 16384 (16 MB)
+# Restart Required: NO
+# Importance: MEDIUM
+work_mem = 16384
+
+# Parameter: maintenance_work_mem
+# Description: Memory for maintenance operations (in KB)
+# Value: 524288 (512 MB)
+# Restart Required: NO
+# Importance: MEDIUM
+maintenance_work_mem = 524288
+
+# Parameter: effective_cache_size
+# Description: Planner's estimate of OS cache size (in 8KB blocks)
+# Value: {DBInstanceClassMemory*3/4/8192} (75% of RAM)
+# Restart Required: NO
+# Importance: MEDIUM
+effective_cache_size = {DBInstanceClassMemory*3/4/8192}
+
+# Parameter: logical_decoding_work_mem
+# Description: Memory for logical decoding (in KB)
+# Value: 131072 (128 MB)
+# Restart Required: NO
+# Importance: MEDIUM
+logical_decoding_work_mem = 131072
+
+# ============================================================================
+# STEP 5: Checkpoint and WAL Parameters
+# ============================================================================
+
+# Parameter: max_wal_size
+# Description: Maximum WAL size before checkpoint (in MB)
+# Value: 2048 (2 GB)
+# Restart Required: NO
+# Importance: MEDIUM
+max_wal_size = 2048
+
+# Parameter: checkpoint_timeout
+# Description: Time between automatic checkpoints (in seconds)
+# Value: 900 (15 minutes)
+# Restart Required: NO
+# Importance: MEDIUM
+checkpoint_timeout = 900
+
+# Parameter: checkpoint_completion_target
+# Description: Fraction of checkpoint interval to spread writes
+# Value: 0.9 (90%)
+# Restart Required: NO
+# Importance: LOW
+checkpoint_completion_target = 0.9
+
+# ============================================================================
+# STEP 6: Logging and Monitoring Parameters
+# ============================================================================
+
+# Parameter: log_connections
+# Description: Log successful connections
+# Value: 1 (enabled)
+# Restart Required: NO
+# Importance: LOW
+log_connections = 1
+
+# Parameter: log_disconnections
+# Description: Log session disconnections
+# Value: 1 (enabled)
+# Restart Required: NO
+# Importance: LOW
+log_disconnections = 1
+
+# Parameter: log_min_duration_statement
+# Description: Log queries running longer than this (in milliseconds)
+# Value: 1000 (1 second, -1 = disabled)
+# Restart Required: NO
+# Importance: MEDIUM
+log_min_duration_statement = 1000
+
+# Parameter: log_checkpoints
+# Description: Log checkpoints
+# Value: 1 (enabled)
+# Restart Required: NO
+# Importance: MEDIUM
+log_checkpoints = 1
+
+# Parameter: log_replication_commands
+# Description: Log replication commands
+# Value: 1 (enabled)
+# Restart Required: NO
+# Importance: MEDIUM - Useful for CDC troubleshooting
+log_replication_commands = 1
+
+# ============================================================================
+# STEP 7: Autovacuum Parameters (Important for CDC)
+# ============================================================================
+
+# Parameter: autovacuum
+# Description: Enable autovacuum
+# Value: 1 (enabled)
+# Restart Required: NO
+# Importance: CRITICAL
+autovacuum = 1
+
+# Parameter: autovacuum_naptime
+# Description: Time between autovacuum runs (in seconds)
+# Value: 30 (30 seconds)
+# Restart Required: NO
+# Importance: MEDIUM
+autovacuum_naptime = 30
+
+# Parameter: autovacuum_vacuum_scale_factor
+# Description: Fraction of table size to trigger vacuum
+# Value: 0.1 (10%)
+# Restart Required: NO
+# Importance: MEDIUM
+autovacuum_vacuum_scale_factor = 0.1
+
+# ============================================================================
+# STEP 8: Apply Parameter Group via AWS CLI
+# ============================================================================
+
+# Modify all parameters at once:
+aws rds modify-db-parameter-group \
+    --db-parameter-group-name retail-cdc-pg14 \
+    --parameters \
+        "ParameterName=rds.logical_replication,ParameterValue=1,ApplyMethod=pending-reboot" \
+        "ParameterName=max_replication_slots,ParameterValue=10,ApplyMethod=pending-reboot" \
+        "ParameterName=max_wal_senders,ParameterValue=10,ApplyMethod=pending-reboot" \
+        "ParameterName=wal_keep_size,ParameterValue=2048,ApplyMethod=immediate" \
+        "ParameterName=wal_sender_timeout,ParameterValue=60000,ApplyMethod=immediate" \
+        "ParameterName=work_mem,ParameterValue=16384,ApplyMethod=immediate" \
+        "ParameterName=maintenance_work_mem,ParameterValue=524288,ApplyMethod=immediate" \
+        "ParameterName=max_wal_size,ParameterValue=2048,ApplyMethod=immediate" \
+        "ParameterName=checkpoint_timeout,ParameterValue=900,ApplyMethod=immediate" \
+        "ParameterName=log_connections,ParameterValue=1,ApplyMethod=immediate" \
+        "ParameterName=log_disconnections,ParameterValue=1,ApplyMethod=immediate" \
+        "ParameterName=log_min_duration_statement,ParameterValue=1000,ApplyMethod=immediate" \
+        "ParameterName=log_checkpoints,ParameterValue=1,ApplyMethod=immediate" \
+        "ParameterName=log_replication_commands,ParameterValue=1,ApplyMethod=immediate" \
+        "ParameterName=autovacuum_naptime,ParameterValue=30,ApplyMethod=immediate"
+
+# ============================================================================
+# STEP 9: Attach Parameter Group to RDS Instance
+# ============================================================================
+
+# Via AWS Console:
+# 1. Go to RDS → Databases
+# 2. Select your database instance
+# 3. Click "Modify"
+# 4. Under "Database options" → "DB parameter group"
+# 5. Select: retail-cdc-pg14
+# 6. Click "Continue"
+# 7. Apply immediately or during maintenance window
+# 8. Click "Modify DB Instance"
+
+# Via AWS CLI:
+aws rds modify-db-instance \
+    --db-instance-identifier your-rds-instance-name \
+    --db-parameter-group-name retail-cdc-pg14 \
+    --apply-immediately
+
+# ============================================================================
+# STEP 10: Reboot RDS Instance (Required for critical parameters)
+# ============================================================================
+
+# Via AWS Console:
+# 1. Go to RDS → Databases
+# 2. Select your database instance
+# 3. Click "Actions" → "Reboot"
+# 4. Confirm reboot
+
+# Via AWS CLI:
+aws rds reboot-db-instance \
+    --db-instance-identifier your-rds-instance-name
+
+# Wait 5-10 minutes for instance to become available
+
+# ============================================================================
+# STEP 11: Verify Configuration
+# ============================================================================
+
+# Connect to RDS instance and verify:
+psql -h your-rds-endpoint.region.rds.amazonaws.com -U postgres -d postgres
+
+# Check critical parameters:
+SHOW rds.logical_replication;  -- Should return: on
+SHOW wal_level;                -- Should return: logical
+SHOW max_replication_slots;    -- Should return: 10
+SHOW max_wal_senders;          -- Should return: 10
+SHOW wal_keep_size;            -- Should return: 2GB (PostgreSQL 13+)
+
+# ============================================================================
+# STEP 12: Configure pg_hba.conf (RDS Security Groups)
+# ============================================================================
+
+# RDS doesn't expose pg_hba.conf directly
+# Instead, use Security Groups to control access
+
+# Via AWS Console:
+# 1. Go to RDS → Databases → Select instance
+# 2. Under "Security", click VPC security groups
+# 3. Edit inbound rules
+# 4. Add rule:
+#    - Type: PostgreSQL
+#    - Protocol: TCP
+#    - Port: 5432
+#    - Source: Databricks workspace CIDR or security group
+#    - Description: Databricks Lakeflow Connect
+
+# Via AWS CLI:
+aws ec2 authorize-security-group-ingress \
+    --group-id sg-xxxxxxxxxxxxx \
+    --protocol tcp \
+    --port 5432 \
+    --cidr 10.0.0.0/16 \
+    --group-name databricks-lakeflow-connect
+
+# ============================================================================
+# MONITORING AND MAINTENANCE
+# ============================================================================
+
+# Monitor replication slot lag:
+SELECT 
+    slot_name,
+    active,
+    pg_size_pretty(pg_wal_lsn_diff(pg_current_wal_lsn(), restart_lsn)) as lag_size
+FROM pg_replication_slots;
+
+# Monitor WAL directory size:
+SELECT pg_size_pretty(SUM(size)) as total_wal_size
+FROM pg_ls_waldir();
+
+# Set up CloudWatch alarms:
+# - DatabaseConnections > 80% of max_connections
+# - FreeStorageSpace < 10GB
+# - ReplicationSlotDiskUsage > 1GB
+
+# ============================================================================
+# TROUBLESHOOTING
+# ============================================================================
+
+# Issue: Parameter changes not applied
+# Solution: Check if reboot is required
+aws rds describe-db-instances \
+    --db-instance-identifier your-rds-instance-name \
+    --query 'DBInstances[0].PendingModifiedValues'
+
+# Issue: Cannot enable logical replication
+# Solution: Verify parameter group is attached and instance is rebooted
+
+# Issue: Slot invalidation
+# Solution: Increase wal_keep_size or reduce replication lag
+
+# ============================================================================
+# COST CONSIDERATIONS
+# ============================================================================
+
+# Enabling logical replication increases:
+# 1. Storage costs: WAL files retained longer
+# 2. IOPS costs: More write operations for WAL
+# 3. CPU costs: Logical decoding overhead
+
+# Cost optimization tips:
+# - Use gp3 storage for better IOPS performance
+# - Schedule non-critical CDC during off-peak hours
+# - Monitor and clean up inactive replication slots
+# - Use read replicas for analytical queries
+
+# ============================================================================
+# END OF AWS RDS PARAMETER CONFIGURATION
+# ============================================================================

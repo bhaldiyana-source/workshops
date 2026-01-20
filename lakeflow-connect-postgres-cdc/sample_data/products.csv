@@ -1,0 +1,21 @@
+product_id,product_name,category,price,stock_quantity,supplier,description,created_date,last_updated
+1,Laptop Pro 15,Electronics,1299.99,50,TechSupply Inc,High-performance 15-inch laptop with 16GB RAM,2024-01-01 09:00:00,2024-01-01 09:00:00
+2,Wireless Mouse,Electronics,29.99,200,TechSupply Inc,Ergonomic wireless mouse with precision tracking,2024-01-01 09:00:00,2024-01-01 09:00:00
+3,Mechanical Keyboard,Electronics,89.99,150,TechSupply Inc,RGB backlit mechanical gaming keyboard,2024-01-01 09:00:00,2024-01-01 09:00:00
+4,USB-C Hub,Electronics,45.99,100,TechSupply Inc,7-in-1 USB-C hub with HDMI and ethernet,2024-01-01 09:00:00,2024-01-01 09:00:00
+5,Noise Cancelling Headphones,Electronics,249.99,75,TechSupply Inc,Premium over-ear headphones with active noise cancellation,2024-01-01 09:00:00,2024-01-01 09:00:00
+6,Wireless Charger,Electronics,35.99,180,TechSupply Inc,Fast wireless charging pad for smartphones,2024-01-01 09:00:00,2024-01-01 09:00:00
+7,External SSD 1TB,Electronics,129.99,90,TechSupply Inc,Portable 1TB SSD with USB 3.2 Gen 2,2024-01-01 09:00:00,2024-01-01 09:00:00
+8,Webcam HD,Electronics,79.99,120,TechSupply Inc,1080p HD webcam with built-in microphone,2024-01-01 09:00:00,2024-01-01 09:00:00
+9,Office Chair,Furniture,249.99,30,OfficeGoods LLC,Ergonomic office chair with lumbar support,2024-01-01 09:00:00,2024-01-01 09:00:00
+10,Standing Desk,Furniture,399.99,25,OfficeGoods LLC,Electric height-adjustable standing desk,2024-01-01 09:00:00,2024-01-01 09:00:00
+11,Desk Lamp,Furniture,45.99,75,OfficeGoods LLC,LED desk lamp with adjustable brightness,2024-01-01 09:00:00,2024-01-01 09:00:00
+12,Monitor Stand,Furniture,34.99,100,OfficeGoods LLC,Adjustable monitor stand with storage,2024-01-01 09:00:00,2024-01-01 09:00:00
+13,Bookshelf,Furniture,129.99,40,OfficeGoods LLC,5-tier wooden bookshelf,2024-01-01 09:00:00,2024-01-01 09:00:00
+14,Notebook Pack,Stationery,12.99,500,PaperWorld,Pack of 5 college-ruled notebooks,2024-01-01 09:00:00,2024-01-01 09:00:00
+15,Pen Set,Stationery,8.99,600,PaperWorld,Set of 10 ballpoint pens in assorted colors,2024-01-01 09:00:00,2024-01-01 09:00:00
+16,Sticky Notes,Stationery,5.99,800,PaperWorld,Pack of 12 sticky note pads,2024-01-01 09:00:00,2024-01-01 09:00:00
+17,Desk Organizer,Stationery,19.99,150,PaperWorld,Multi-compartment desk organizer,2024-01-01 09:00:00,2024-01-01 09:00:00
+18,Whiteboard,Stationery,29.99,80,PaperWorld,24x36 inch magnetic whiteboard,2024-01-01 09:00:00,2024-01-01 09:00:00
+19,Printer Paper,Office Supplies,24.99,200,SupplyMart,Ream of 500 sheets letter-size paper,2024-01-01 09:00:00,2024-01-01 09:00:00
+20,File Folders,Office Supplies,14.99,300,SupplyMart,Pack of 50 manila file folders,2024-01-01 09:00:00,2024-01-01 09:00:00
