@@ -1,0 +1,11 @@
+feedback_id,user_id,feedback_text,rating,timestamp,product_id
+FB001,USER001,The new features are excellent and very easy to use,5,2024-01-15 10:00:00,PROD123
+FB002,USER002,Having issues with the login process,2,2024-01-15 11:00:00,PROD456
+FB003,USER003,Great product but documentation could be improved,4,2024-01-15 12:00:00,PROD123
+FB004,USER004,Customer support was very helpful,5,2024-01-15 13:00:00,PROD789
+FB005,USER005,System performance is slow during peak hours,3,2024-01-15 14:00:00,PROD456
+FB006,USER006,Love the new dashboard interface,5,2024-01-15 15:00:00,PROD123
+FB007,USER007,Pricing is too high compared to competitors,2,2024-01-15 16:00:00,PROD789
+FB008,USER008,The mobile app needs improvement,3,2024-01-15 17:00:00,PROD456
+FB009,USER009,Best purchase decision we made this year,5,2024-01-15 18:00:00,PROD123
+FB010,USER010,Integration with other tools works perfectly,4,2024-01-15 19:00:00,PROD789

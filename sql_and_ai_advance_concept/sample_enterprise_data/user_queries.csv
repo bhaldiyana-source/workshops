@@ -1,0 +1,11 @@
+query_id,query_text,user_id,timestamp,intent
+Q001,How do I reset my password,USER001,2024-01-15 10:30:00,informational
+Q002,API authentication methods,USER002,2024-01-15 11:45:00,informational
+Q003,Data privacy compliance requirements,USER003,2024-01-15 12:20:00,informational
+Q004,Deploy machine learning model,USER004,2024-01-15 13:15:00,transactional
+Q005,Incident response contact,USER005,2024-01-15 14:30:00,navigational
+Q006,Performance optimization tips,USER006,2024-01-15 15:45:00,informational
+Q007,Security best practices,USER007,2024-01-15 16:20:00,informational
+Q008,Database query optimization,USER008,2024-01-15 17:10:00,informational
+Q009,Employee benefits overview,USER009,2024-01-15 18:00:00,navigational
+Q010,Latest product release notes,USER010,2024-01-15 19:30:00,informational

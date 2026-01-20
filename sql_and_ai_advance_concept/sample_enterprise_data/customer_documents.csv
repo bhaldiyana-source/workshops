@@ -1,0 +1,11 @@
+doc_id,title,content,document_type,created_date
+DOC001,API Integration Guide,This comprehensive guide covers all aspects of integrating with our REST API including authentication using OAuth 2.0 and rate limiting policies,technical_doc,2024-01-15
+DOC002,Data Privacy Policy,Our organization is committed to protecting customer data privacy in compliance with GDPR and CCPA regulations,policy,2024-01-10
+DOC003,Incident Response Procedure,Follow these steps in the event of a security incident: identify and contain the threat and assess the scope,procedure,2024-01-20
+DOC004,Q1 2024 Performance Report,Quarter 1 results show strong growth across all business units with revenue increased 25% year-over-year,report,2024-04-01
+DOC005,Machine Learning Deployment Guide,This guide provides step-by-step instructions for deploying machine learning models to production,technical_doc,2024-02-01
+DOC006,Employee Handbook,Welcome to the company! This handbook contains important policies and procedures for all employees,policy,2024-01-05
+DOC007,Disaster Recovery Plan,This plan outlines procedures for recovering IT systems and data in the event of a disaster or major outage,procedure,2024-01-25
+DOC008,Annual Security Assessment,Our annual security assessment identified several areas for improvement in our cybersecurity posture,report,2024-03-15
+DOC009,Database Performance Tuning,Learn how to optimize database queries and improve overall database performance with these best practices,technical_doc,2024-02-10
+DOC010,Code of Conduct,All employees must adhere to our code of conduct which promotes ethical behavior and professional standards,policy,2024-01-08
